@@ -1,0 +1,4 @@
+p921<-read.table("C:\\Users\\Owner\\Desktop\\T1-5.txt")
+data<-cbind(p921$V1,p921$V2,p921$V5,p921$V6)
+colnames(data)<-c("wind","solrad","NO2","O3")
+

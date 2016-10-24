@@ -1,0 +1,15 @@
+Beta1<-rep(1,10)
+Beta2<-c(-.33,.114,.762,.668,.92,.922,.780,-.571,.047,.25)
+Y<-c(0,0,0,1,0,1,0,0,1,0)
+Data<-as.data.frame(cbind(Beta1,Beta2,Y))
+Data.fit<-glm(Y~(Beta1+Beta2)-1,family="binomial",data=Data)
+Data.fit
+
+
+Data.fitted<-as.data.frame(cbind(Beta2,Data.fit$fitted.values))
+colnames(Data.fitted)<-c("X","EY")
+attach(Data.fitted)
+plot(X,EY)
+
+library(popbio)
+logi.hist.plot(Data$Beta2,Data$Y)

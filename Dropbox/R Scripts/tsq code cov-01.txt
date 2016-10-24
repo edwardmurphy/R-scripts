@@ -1,0 +1,41 @@
+data a;
+infile 'C:\Documents and Settings\ma_student\Desktop\t52.txt';
+input ssh verbal science;
+run;
+
+proc corr noprint nocorr cov outp=b(type=cov);
+    var ssh verbal science;                     
+proc print data=b;
+quit;
+
+proc iml;
+   use b;
+   read all into c;
+
+   p = ncol(c);
+   S = c[1:p,];
+   xbar = t(c[p+1,]);
+   n = c[p+3,1];
+   
+mu0 = {500,50,30};         
+diff = xbar-mu0;
+covxbar = S/n;                  * Est. Cov. matrix of the sample mean;
+tsq = diff`*inv(covxbar)*diff;  * Hotelling's T-square;
+
+
+f = (n-p)*tsq/((n-1)*p);        * F-conversion;
+alpha=0.05;
+qf=finv(1-alpha,p,n-p);
+ftsqcompare=((n-1)*p)*qf/(n-p);
+
+pval = 1 - probf(f,p,n-p);      * P-value calculation;
+ddf = n-p;
+print "The number of variables is" p ", and the sample size is  " n ".";
+print "For testing MU=" mu0 ",";
+print "Hotelling's T-Square=" tsq ".";
+print "The F-Statistic is" f ", with numerator df"  p "and
+     denominator df" ddf ".";
+print "The P-value is" pval ".";
+print "The F value to compare T^2 to directly is" ftsqcompare".";
+
+quit;   

@@ -1,0 +1,134 @@
+setwd("C:/Users/Owner/Documents/STAT678")
+library(survival)
+Sweave("HW3_Sweave.nw")
+
+##Problem 8.3
+
+ploidy<-read.table("tongue cancer.txt",skip=9)
+profile<-ploidy[,1]
+time<-ploidy[,2]
+status<-ploidy[,3]
+profile[profile==2]<-0
+fit<-coxph(Surv(time,status)~profile,method="breslow")
+p.score=round(1-pchisq(fit$score,1),5)
+p.score
+
+RR_lower<-exp(-.461-1.96*0.281)
+RR_upper<-exp(-.461+1.96*0.281)
+breslow<-round(cbind(-.461,0.281,RR_lower,RR_upper),3)
+colnames(breslow)<-c("beta","se","RR_lower","RR_upper")
+breslow
+
+p.LRT=round(1-pchisq(2.61,1),5)
+p.LRT
+
+p.wald=round(1-pchisq(fit$wald.test,1),5)
+p.wald
+
+##Problem 8.5
+
+lymph<-read.table("lymph.txt",skip=12)
+colnames(lymph)<-c("graft","type","time","status","score","wait")
+
+lymph$NHLauto<-cbind(rep(0,nrow(lymph)))
+lymph$NHLauto[lymph$graft==2 & lymph$type==1]<-1
+
+lymph$HODallo<-cbind(rep(0,nrow(lymph)))
+lymph$HODallo[lymph$graft==1 & lymph$type==2]<-1
+
+lymph$HODauto<-cbind(rep(0,nrow(lymph)))
+lymph$HODauto[lymph$graft==2 & lymph$type==2]<-1
+
+fit<-coxph(Surv(time,status)~NHLauto+HODallo+HODauto,data=lymph,method="breslow")
+
+p.score=round(1-pchisq(fit$score,3),5)
+p.score
+
+p.LRT=round(1-pchisq(7.89,3),5)
+p.LRT
+
+p.wald=round(1-pchisq(fit$wald.test,3),5)
+p.wald
+
+##part b##
+lymph$auto<-cbind(rep(0,nrow(lymph)))
+lymph$auto[lymph$graft==2]<-1
+
+lymph$HOD<-cbind(rep(0,nrow(lymph)))
+lymph$HOD[lymph$type==2]<-1
+
+fit1<-coxph(Surv(time,status)~auto*HOD,data=lymph,method="breslow")
+
+p.score=round(1-pchisq(fit1$score,3),5)
+p.score
+
+p.LRT=round(1-pchisq(7.89,3),5)
+p.LRT
+
+p.wald=round(1-pchisq(fit1$wald.test,3),5)
+p.wald
+
+fit2<-coxph(Surv(time,status)~auto+HOD,data=lymph,method="breslow")
+anova(fit2,fit1)
+
+##part d##
+fit$var[1,1]+fit$var[3,3]-2*fit$var[1,3]
+2*(1-pnorm(1.02))
+
+##Problem 8.13
+burn<-lymph<-read.table("burn.txt",skip=37)
+burn$trt<-burn[,2]
+burn$percent<-burn[,5]
+burn$time<-burn[,17]
+burn$status<-burn[,18]
+
+fit<-coxph(Surv(time,status)~trt+percent,data=burn,method="breslow")
+
+zvalues<-data.frame(trt=0,percent=25)
+fit1<-survfit(fit,newdata=zvalues,conf.type="log-log")
+
+zvalues<-data.frame(trt=1,percent=25)
+fit1<-survfit(fit,newdata=zvalues,conf.type="log-log")
+
+##base<-basehaz(fit,centered=FALSE)
+##H<-base[17,1]
+##S<-exp(-H)
+##S^exp(fit$coef[1]*0+fit$coef[2]*25)
+##S^exp(fit$coef[1]*1+fit$coef[2]*25)
+
+##Problem 8.14
+BMT<-read.table("BMT.txt")
+BMT$group<-BMT[,1]
+BMT$time<-BMT[,7]
+BMT$status<-BMT[,8]
+BMT$MTX<-BMT[,22]
+
+fit<-coxph(Surv(time,status)~factor(group)+MTX,data=BMT,method="breslow")
+
+base<-basehaz(fit,centered=FALSE)
+S<-exp(-base[,1])
+
+ALL_MTX=S^exp(fit$coef[3]*1)
+ALL=S^exp(fit$coef[3]*0)
+
+AMLlow_MTX=S^exp(fit$coef[1]+fit$coef[3]*1)
+AMLlow=S^exp(fit$coef[1]+fit$coef[3]*0)
+
+AMLhigh_MTX=S^exp(fit$coef[2]+fit$coef[3]*1)
+AMLhigh=S^exp(fit$coef[2]+fit$coef[3]*0)
+
+S_ALL=round(cbind(base[,2],ALL_MTX,ALL),3)
+colnames(S_ALL)=c("time","MTX","no MTX")
+
+S_AMLlow=round(cbind(base[,2],AMLlow_MTX,AMLlow),3)
+colnames(S_AMLlow)=c("time","MTX","no MTX")
+
+S_AMLhigh=round(cbind(base[,2],AMLhigh_MTX,AMLhigh),3)
+colnames(S_AMLhigh)=c("time","MTX","no MTX")
+
+zvalues<-data.frame(group=3,MTX=1)
+fit1<-survfit(fit,newdata=zvalues,conf.type="log-log")
+
+zvalues<-data.frame(group=3,MTX=0)
+fit1<-survfit(fit,newdata=zvalues,conf.type="log-log")
+

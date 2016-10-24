@@ -1,0 +1,72 @@
+Y<-c(0.88,5.97,7.43,6.18,6.92,9.42,6.83,7.71,8.14,4.8)
+t<-seq(1,10,1)
+M1<-data.frame(cbind(Y,t))
+M1.fit<-nls(Y~beta1*(1-exp(-beta2*t)),data=M1,start=list(beta1=6,beta2=2.5))
+
+
+
+
+
+
+data(ChickWeight)
+CW<-ChickWeight
+plot(CW$Time,CW$weight,type="n")
+text(CW$Time,CW$weight,CW$Chick)
+Chick.43<-CW[CW$Chick==43,]
+CW.fit<-nls(weight~beta1/(1+exp((beta2-Time)/beta3)),data=Chick.43,start=
+list(beta1=368,beta2=14,beta3=6),model=TRUE)
+summary(CW.fit)
+
+
+#estimated coefficients
+CW.coef<-summary(CW.fit)$"coefficients"
+beta1<-CW.coef[1,1]
+beta2<-CW.coef[2,1]
+beta3<-CW.coef[3,1]
+
+#create X(beta) matrix 
+t<-Chick.43$Time
+Form<-expression(beta1/(1+exp((beta2-t)/beta3)))
+partial.diff<-deriv(Form,c("beta1","beta2","beta3"),func=TRUE)
+partial.diff(beta1,beta2,beta3)
+F.B<-attributes(partial.diff(beta1,beta2,beta3))$gradient
+
+#create projection matrix
+P<-F.B %*% solve(t(F.B) %*% F.B) %*% t(F.B)
+h<-diag(P)
+
+myplotnls<-function(x){
+
+	#studentize the residuals
+	res.std<-residuals(x)/(summary(x)$sigma*sqrt(1-h))
+	
+	plot(fitted(x),residuals(x),xlab="Fitted Values",
+		ylab="Residuals",main="Residuals vs. Fitted")
+	abline(h=0)
+
+	qqnorm(res.std,ylab="Studentized Residuals")	
+	qqline(res.std)
+
+	plot(fitted(x),sqrt(abs(res.std)),xlab="Fitted Values",
+		ylab="sqrt(|Studentized Residuals|)",main="Scale-Location Plot")
+
+	plot(h,res.std,xlab="Leverage (h_ii)",ylab="Studentized Residuals",
+		main="Residuals vs. Leverage")
+}
+
+myplotnls(CW.fit)
+
+pdf("C:\\Users\\Owner\\Desktop\\HW4.pdf")
+par(mfrow=c(1,1))
+myplotnls(CW.fit)
+dev.off()
+
+c<-0.5
+predict(Mod1,list(conc=c))
+predict(Mod2,list(conc=c))
+predict(Mod3,list(conc=c))
+
+AIC(Mod1)
+AIC(Mod2)
+AIC(Mod3)
+

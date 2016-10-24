@@ -1,0 +1,581 @@
+5.1
+
+data a;
+  input x1 x2;                      * Edit this line *;
+  cards;
+  2 12
+  8 9
+  6 9
+  8 10
+;
+  run;
+
+  proc print data=a;
+  quit;
+proc corr noprint nocorr cov outp=b(type=cov);
+    var x1 x2;                     
+proc print data=b;
+quit;
+
+proc iml;
+   use b;
+   read all into c;
+print c;
+
+   p = ncol(c);
+   S = c[1:p,];
+   xbar = t(c[p+1,]);
+   n = c[p+3,1];
+
+   print p S xbar n;
+   
+mu0 = {7,11};         
+diff = xbar-mu0;
+covxbar = S/n;                  * Est. Cov. matrix of the sample mean;
+tsq = diff`*inv(covxbar)*diff;  * Hotelling's T-square;
+f = (n-p)*tsq/((n-1)*p);        * F-conversion;
+pval = 1 - probf(f,p,n-p);      * P-value calculation;
+ddf = n-p;
+print "The number of variables is" p ", and the sample size is  " n ".";
+print "For testing MU=" mu0 ",";
+print "Hotelling's T-Square=" tsq ".";
+print "The F-Statistic is" f ", with numerator df"  p "and
+     denominator df" ddf ".";
+print "The P-value is" pval ".";
+quit;   
+
+
+                                      The SAS System         17:13 Monday, March 16, 2009  13
+
+                                        Obs    x1    x2
+
+                                         1      2    12
+                                         2      8     9
+                                         3      6     9
+                                         4      8    10
+
+                                         The SAS System         17:13 Monday, March 16, 2009  14
+
+                        Obs    _TYPE_    _NAME_       x1          x2
+
+                         1      COV        x1       8.00000     -3.3333
+                         2      COV        x2      -3.33333      2.0000
+                         3      MEAN                6.00000     10.0000
+                         4      STD                 2.82843      1.4142
+                         5      N                   4.00000      4.0000
+
+                                         The SAS System         17:13 Monday, March 16, 2009  15
+
+                                               c
+
+                                              8 -3.333333
+                                      -3.333333         2
+                                              6        10
+                                      2.8284271 1.4142136
+                                              4         4
+
+
+                               p         S                xbar         n
+
+                               2         8 -3.333333         6         4
+                                 -3.333333         2        10
+
+
+                                             p                                    n
+
+          The number of variables is         2 , and the sample size is           4 .
+
+
+                                                        mu0
+
+                                  For testing MU=         7 ,
+                                                         11
+
+
+                                                           tsq
+
+                               Hotelling's T-Square= 13.636364 .
+
+
+                            f                             p                              ddf
+
+ The F-Statistic is 4.5454545 , with numerator df         2 and     denominator df         2 .
+
+
+                                                       pval
+
+                                   The P-value is 0.1803279 .
+
+
+5.9 a
+
+data a;
+alpha=0.05;
+ chisq=cinv(1-alpha,6); 
+ cv=sqrt(chisq);
+ stdev1=sqrt(3266.46);
+ stdev2=sqrt(721.91);
+stdev3=sqrt(179.28);
+stdev4=sqrt(474.98);
+stdev5=sqrt(9.95);
+stdev6=sqrt(21.26);
+
+sqrtn=sqrt(61);
+
+x1l=95.52-cv*stdev1/sqrtn;
+x1u=95.52+cv*stdev1/sqrtn;
+x2l=164.38-cv*stdev2/sqrtn;
+x2u=164.38+cv*stdev2/sqrtn;
+x3l=55.69-cv*stdev3/sqrtn;
+x3u=55.69+cv*stdev3/sqrtn;
+x4l=93.39-cv*stdev4/sqrtn;
+x4u=93.39+cv*stdev4/sqrtn;
+x5l=17.98-cv*stdev5/sqrtn;
+x5u=17.98+cv*stdev5/sqrtn;
+x6l=31.13-cv*stdev6/sqrtn;
+x6u=31.13+cv*stdev6/sqrtn;
+ run;
+
+ proc print data=a;
+ quit;
+
+                                         The SAS System         11:00 Tuesday, March 17, 2009   3
+
+Obs alpha  chisq     cv    stdev1  stdev2  stdev3  stdev4  stdev5  stdev6  sqrtn    x1l     x1u
+
+ 1   0.05 12.5916 3.54846 57.1530 26.8684 13.3895 21.7940 3.15436 4.61086 7.81025 69.5535 121.487
+
+Obs   x2l      x2u      x3l      x3u      x4l      x4u      x5l      x5u      x6l      x6u
+
+ 1  152.173  176.587  49.6067  61.7733  83.4882  103.292  16.5469  19.4131  29.0351  33.2249
+
+
+
+
+
+5.9 c
+
+
+ data b;
+alpha=0.05;
+m=6;
+n=61;
+ t=tinv(1-alpha/(2*m),n-1);
+ stdev1=sqrt(3266.46);
+ stdev2=sqrt(721.91);
+stdev3=sqrt(179.28);
+stdev4=sqrt(474.98);
+stdev5=sqrt(9.95);
+stdev6=sqrt(21.26);
+
+sqrtn=sqrt(61);
+x1l=95.52-t*stdev1/sqrtn;
+x1u=95.52+t*stdev1/sqrtn;
+x2l=164.38-t*stdev2/sqrtn;
+x2u=164.38+t*stdev2/sqrtn;
+x3l=55.69-t*stdev3/sqrtn;
+x3u=55.69+t*stdev3/sqrtn;
+x4l=93.39-t*stdev4/sqrtn;
+x4u=93.39+t*stdev4/sqrtn;
+x5l=17.98-t*stdev5/sqrtn;
+x5u=17.98+t*stdev5/sqrtn;
+x6l=31.13-t*stdev6/sqrtn;
+x6u=31.13+t*stdev6/sqrtn;
+ run;
+
+
+
+
+ proc print data=b;
+ quit;
+
+                                         The SAS System         11:00 Tuesday, March 17, 2009   4
+
+ Obs alpha m  n    t     stdev1  stdev2  stdev3  stdev4  stdev5  stdev6  sqrtn    x1l     x1u
+
+  1   0.05 6 61 2.72855 57.1530 26.8684 13.3895 21.7940 3.15436 4.61086 7.81025 75.5533 115.487
+
+ Obs   x2l      x2u      x3l      x3u      x4l      x4u      x5l      x5u      x6l      x6u
+
+  1  154.993  173.767  51.0123  60.3677  85.7761  101.004  16.8780  19.0820  29.5192  32.7408
+
+
+5.18 (a)
+
+data a;
+infile 'C:\Documents and Settings\ma_student\Desktop\t52.txt';
+input ssh verbal science;
+run;
+
+proc corr noprint nocorr cov outp=b(type=cov);
+    var ssh verbal science;                     
+proc print data=b;
+quit;
+
+proc iml;
+   use b;
+   read all into c;
+
+   p = ncol(c);
+   S = c[1:p,];
+   xbar = t(c[p+1,]);
+   n = c[p+3,1];
+   
+mu0 = {500,50,30};         
+diff = xbar-mu0;
+covxbar = S/n;                  * Est. Cov. matrix of the sample mean;
+tsq = diff`*inv(covxbar)*diff;  * Hotelling's T-square;
+
+
+f = (n-p)*tsq/((n-1)*p);        * F-conversion;
+alpha=0.05;
+qf=finv(1-alpha,p,n-p);
+ftsqcompare=((n-1)*p)*qf/(n-p);
+
+pval = 1 - probf(f,p,n-p);      * P-value calculation;
+ddf = n-p;
+print "The number of variables is" p ", and the sample size is  " n ".";
+print "For testing MU=" mu0 ",";
+print "Hotelling's T-Square=" tsq ".";
+print "The F-Statistic is" f ", with numerator df"  p "and
+     denominator df" ddf ".";
+print "The P-value is" pval ".";
+print "The F value to compare T^2 to directly is" ftsqcompare".";
+
+quit;   
+
+                                         The SAS System         11:00 Tuesday, March 17, 2009  89
+
+                    Obs    _TYPE_    _NAME_       ssh       verbal    science
+
+                     1      COV      ssh        5808.06    597.835    222.030
+                     2      COV      verbal      597.84    126.054     23.389
+                     3      COV      science     222.03     23.389     23.112
+                     4      MEAN                 526.59     54.690     25.126
+                     5      STD                   76.21     11.227      4.807
+                     6      N                     87.00     87.000     87.000
+
+                                         The SAS System         11:00 Tuesday, March 17, 2009  90
+
+                                              p                                    n
+
+           The number of variables is         3 , and the sample size is          87 .
+
+
+                                                         mu0
+
+                                   For testing MU=       500 ,
+                                                          50
+                                                          30
+
+
+                                                            tsq
+
+                                Hotelling's T-Square= 223.31018 .
+
+
+                             f                             p                              ddf
+
+  The F-Statistic is 72.705639 , with numerator df         3 and     denominator df        84 .
+
+
+                                                       pval
+
+                                   The P-value is         0 .
+
+
+                                                               ftsqcompare
+
+                     The F value to compare T^2 to directly is   8.3334833 .
+
+
+5.20
+
+data a;
+infile 'C:\Documents and Settings\ma_student\Desktop\T5-12.txt';
+input tail wing;
+run;
+
+proc means data = a;
+run;
+
+proc corr cov data=a;
+run;
+
+proc iml;
+
+   use a;
+   read all into x;
+   close a;
+
+   n = nrow(x);  ** number of observation ;
+p = ncol(x);  ** nubmer of variables ; 
+jone = j(n,1);
+
+xbar = x[:,]; ** calculate the column means;; 
+
+xbart = jone*xbar; ** make xbar having same dimension with x;
+
+**print xbar;
+
+S = t(x-xbart)*(x-xbart)/(n-1);
+
+alpha = .05;
+cvb = tinv(1-alpha/(2*p), n-1);  ** critical value for Bonferroni SCI ;;
+cvt2 = finv(1-alpha, p, n-p);    ** Critical value for T2 interval ;;
+cvt = tinv(1-alpha/2,n-1);       ** Critical value for one at a time interval;;
+
+varx = vecdiag(S);    ** find the variances of x;;
+
+cbu = xbar` + cvb*sqrt(varx/n);  
+cbl  = xbar` - cvb*sqrt(varx/n);
+
+ct2u = xbar` + sqrt(p*(n-1)/(n-p)*cvt2)*sqrt(varx/n);
+ct2l = xbar` - sqrt(p*(n-1)/(n-p)*cvt2)*sqrt(varx/n);
+
+ctu = xbar` + cvt*sqrt(varx/n);
+ctl = xbar` - cvt*sqrt(varx/n);
+
+print S, varx,
+'Bonferroni SCI  ' cbl cbu,
+'Hotelling T2 SCI  ' ct2l ct2u,
+'One-at-a-time interval  ' ctl ctu;
+
+quit;
+
+                                         The SAS System         16:40 Monday, March 23, 2009   2
+
+                                      The MEANS Procedure
+
+         Variable     N            Mean         Std Dev         Minimum         Maximum
+         ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+         tail        45     193.6222222      10.9861253     173.0000000     216.0000000
+         wing        45     279.7777778      14.4409281     245.0000000     310.0000000
+         ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+
+                                         The SAS System         16:40 Monday, March 23, 2009   3
+
+                                       The CORR Procedure
+
+                                2  Variables:    tail     wing
+
+
+                                   Covariance Matrix, DF = 44
+
+                                              tail              wing
+
+                            tail       120.6949495       122.3459596
+                            wing       122.3459596       208.5404040
+
+
+                                       Simple Statistics
+
+   Variable           N          Mean       Std Dev           Sum       Minimum       Maximum
+
+   tail              45     193.62222      10.98613          8713     173.00000     216.00000
+   wing              45     279.77778      14.44093         12590     245.00000     310.00000
+
+
+                            Pearson Correlation Coefficients, N = 45
+                                   Prob > |r| under H0: Rho=0
+
+                                              tail          wing
+
+                                tail       1.00000       0.77117
+                                                          <.0001
+
+                                wing       0.77117       1.00000
+                                            <.0001
+
+                                         The SAS System         16:40 Monday, March 23, 2009   4
+
+                                               S
+
+                                      120.69495 122.34596
+                                      122.34596  208.5404
+                                              varx
+
+                                           120.69495
+                                            208.5404
+                                                     cbl       cbu
+
+                              Bonferroni SCI   189.82156 197.42288
+                                               274.78192 284.77363
+                                                     ct2l      ct2u
+
+                             Hotelling T2 SCI   189.42172 197.82272
+                                                274.25635  285.2992
+                                                         ctl       ctu
+
+                          One-at-a-time interval   190.32162 196.92282
+                                                   275.43924 284.11631
+
+5.21
+
+data a;
+infile 'C:\Documents and Settings\ma_student\Desktop\T1-8.txt';
+input domrad rad domhum hum domulna ulna;
+run;
+
+proc means data = a;
+run;
+
+proc corr cov data=a;
+run;
+
+proc iml;
+
+   use a;
+   read all into x;
+   close a;
+
+   n = nrow(x);  ** number of observation ;
+p = ncol(x);  ** nubmer of variables ; 
+jone = j(n,1);
+
+xbar = x[:,]; ** calculate the column means;; 
+
+xbart = jone*xbar; ** make xbar having same dimension with x;
+
+**print xbar;
+
+S = t(x-xbart)*(x-xbart)/(n-1);
+
+alpha = .05;
+cvb = tinv(1-alpha/(2*p), n-1);  ** critical value for Bonferroni SCI ;;
+cvt2 = finv(1-alpha, p, n-p);    ** Critical value for T2 interval ;;
+cvt = tinv(1-alpha/2,n-1);       ** Critical value for one at a time interval;;
+
+varx = vecdiag(S);    ** find the variances of x;;
+
+cbu = xbar` + cvb*sqrt(varx/n);  
+cbl  = xbar` - cvb*sqrt(varx/n);
+
+ct2u = xbar` + sqrt(p*(n-1)/(n-p)*cvt2)*sqrt(varx/n);
+ct2l = xbar` - sqrt(p*(n-1)/(n-p)*cvt2)*sqrt(varx/n);
+
+ctu = xbar` + cvt*sqrt(varx/n);
+ctl = xbar` - cvt*sqrt(varx/n);
+
+print S, varx,
+'Bonferroni SCI  ' cbl cbu,
+'Hotelling T2 SCI  ' ct2l ct2u,
+'One-at-a-time interval  ' ctl ctu;
+
+quit;
+
+                                         The SAS System         17:10 Monday, March 23, 2009   1
+
+                                      The MEANS Procedure
+
+         Variable     N            Mean         Std Dev         Minimum         Maximum
+         ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+         domrad      25       0.8438000       0.1140245       0.4930000       1.1030000
+         rad         25       0.8183200       0.1068545       0.5320000       1.0520000
+         domhum      25       1.7926800       0.2834735       1.0370000       2.3340000
+         hum         25       1.7348400       0.2635991       1.2680000       2.2380000
+         domulna     25       0.7044000       0.1075566       0.5330000       0.8730000
+         ulna        25       0.6938400       0.1029521       0.4820000       0.8720000
+         ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+
+                                         The SAS System         17:10 Monday, March 23, 2009   2
+
+                                       The CORR Procedure
+
+              6  Variables:    domrad   rad      domhum   hum      domulna  ulna
+
+
+                                  Covariance Matrix, DF = 24
+
+                 domrad           rad        domhum           hum       domulna          ulna
+
+  domrad   0.0130015833  0.0103784417  0.0223499750  0.0200856750  0.0091207083  0.0079578417
+  rad      0.0103784417  0.0114178933  0.0185351900  0.0210995117  0.0085297833  0.0089085117
+  domhum   0.0223499750  0.0185351900  0.0803572267  0.0667761967  0.0168369250  0.0128470300
+  hum      0.0200856750  0.0210995117  0.0667761967  0.0694844733  0.0177354833  0.0167935983
+  domulna  0.0091207083  0.0085297833  0.0168369250  0.0177354833  0.0115684167  0.0080711500
+  ulna     0.0079578417  0.0089085117  0.0128470300  0.0167935983  0.0080711500  0.0105991400
+
+
+                                       Simple Statistics
+
+   Variable           N          Mean       Std Dev           Sum       Minimum       Maximum
+
+   domrad            25       0.84380       0.11402      21.09500       0.49300       1.10300
+   rad               25       0.81832       0.10685      20.45800       0.53200       1.05200
+   domhum            25       1.79268       0.28347      44.81700       1.03700       2.33400
+   hum               25       1.73484       0.26360      43.37100       1.26800       2.23800
+   domulna           25       0.70440       0.10756      17.61000       0.53300       0.87300
+   ulna              25       0.69384       0.10295      17.34600       0.48200       0.87200
+
+
+                           Pearson Correlation Coefficients, N = 25
+                                  Prob > |r| under H0: Rho=0
+
+                 domrad           rad        domhum           hum       domulna          ulna
+
+  domrad        1.00000       0.85181       0.69146       0.66826       0.74369       0.67789
+                               <.0001        0.0001        0.0003        <.0001        0.0002
+
+  rad           0.85181       1.00000       0.61192       0.74909       0.74218       0.80980
+                 <.0001                      0.0012        <.0001        <.0001        <.0001
+
+  domhum        0.69146       0.61192       1.00000       0.89365       0.55222       0.44020
+                 0.0001        0.0012                      <.0001        0.0042        0.0277
+
+  hum           0.66826       0.74909       0.89365       1.00000       0.62555       0.61882
+                 0.0003        <.0001        <.0001                      0.0008        0.0010
+
+  domulna       0.74369       0.74218       0.55222       0.62555       1.00000       0.72889
+                 <.0001        <.0001        0.0042        0.0008                      <.0001
+
+  ulna          0.67789       0.80980       0.44020       0.61882       0.72889       1.00000
+                 0.0002        <.0001        0.0277        0.0010        <.0001
+
+                                         The SAS System         17:10 Monday, March 23, 2009   3
+
+                                               S
+
+                  0.0130016 0.0103784   0.02235 0.0200857 0.0091207 0.0079578
+                  0.0103784 0.0114179 0.0185352 0.0210995 0.0085298 0.0089085
+                    0.02235 0.0185352 0.0803572 0.0667762 0.0168369  0.012847
+                  0.0200857 0.0210995 0.0667762 0.0694845 0.0177355 0.0167936
+                  0.0091207 0.0085298 0.0168369 0.0177355 0.0115684 0.0080711
+                  0.0079578 0.0089085  0.012847 0.0167936 0.0080711 0.0105991
+                                              varx
+
+                                           0.0130016
+                                           0.0114179
+                                           0.0803572
+                                           0.0694845
+                                           0.0115684
+                                           0.0105991
+                                                     cbl       cbu
+
+                              Bonferroni SCI   0.7782338 0.9093662
+                                               0.7568766 0.8797634
+                                               1.6296774 1.9556826
+                                               1.5832656 1.8864144
+                                               0.6425529 0.7662471
+                                               0.6346406 0.7530394
+                                                     ct2l      ct2u
+
+                             Hotelling T2 SCI   0.7420179 0.9455821
+                                                 0.722938  0.913702
+                                                1.5396419 2.0457181
+                                                1.4995425 1.9701375
+                                                0.6083914 0.8004086
+                                                0.6019414 0.7857386
+                                                         ctl       ctu
+
+                          One-at-a-time interval    0.796733  0.890867
+                                                   0.7742126 0.8624274
+                                                   1.6756679 1.9096921
+                                                   1.6260316 1.8436484
+                                                   0.6600028 0.7487972
+                                                   0.6513435 0.7363365
+
+
+
+
+

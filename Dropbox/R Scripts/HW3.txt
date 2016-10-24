@@ -1,0 +1,106 @@
+9.10 
+
+
+ML factor analysis results (varimax)
+
+
+> rfl1<-c(.484,.375,.603,.519,.861,.744)
+> rfl2<-c(.411,.319,.717,.855,.499,.594)
+> rfl<-cbind(rfl1,rfl2)
+> comm<-rfl1^2+rfl2^2
+> svar<-1-comm
+> p<-length(rfl1)
+> pvar1<-sum(rfl1^2)/p
+> pvar2<-sum(rfl2^2)/p
+> tvar<-pvar1+pvar2
+> R<-read.table("C:\\Users\\Owner\\Desktop\\E9-14.txt")
+> psi<-diag(svar)
+> residual<-R-rfl%*%t(rfl)-psi
+> 
+> #rotated ML factor loadings (varimax)#
+> rfl
+      rfl1  rfl2
+[1,] 0.484 0.411
+[2,] 0.375 0.319
+[3,] 0.603 0.717
+[4,] 0.519 0.855
+[5,] 0.861 0.499
+[6,] 0.744 0.594
+> 
+> #communality per variable#
+> comm
+[1] 0.403177 0.242386 0.877698 1.000386 0.990322 0.906372
+> 
+> #specific variance per variable#
+> svar
+[1]  0.596823  0.757614  0.122302 -0.000386  0.009678  0.093628
+> 
+> #proportion of variance explained by factor 1#
+> pvar1
+[1] 0.3837847
+> 
+> #proportion of variance explained by factor 2#
+> pvar2
+[1] 0.3529388
+> 
+> #cumulative proportion of variance explained by factors 1 & 2#
+> tvar
+[1] 0.7367235
+> 
+> #residual matrix#
+> residual
+             V1        V2        V3        V4        V5        V6
+1  1.110223e-16  0.192391 -0.017539 -0.000601 -0.000813 -0.001230
+2  1.923910e-01  0.000000 -0.032848 -0.000370 -0.000056 -0.018486
+3 -1.753900e-02 -0.032848  0.000000  0.000008  0.000034  0.003470
+4 -6.010000e-04 -0.000370  0.000008  0.000000  0.000496 -0.000006
+5 -8.130000e-04 -0.000056  0.000034  0.000496  0.000000  0.000010
+6 -1.230000e-03 -0.018486  0.003470 -0.000006  0.000010  0.000000
+
+
+PC factor analysis results (varimax)
+
+
+> R<-read.table("C:\\Users\\Owner\\Desktop\\E9-14.txt")
+> pcfa<-principal(R,nfactors=2,rotate="varimax")
+> rfl<-pcfa$loadings
+> comm<-(rfl[,1])^2+(rfl[,2])^2
+> svar<-1-comm
+> psi<-diag(svar)
+> residual<-R-rfl%*%t(rfl)-psi
+> 
+> #rotated PC factor loadings (varimax)#
+> rfl
+
+Loadings:
+     PC1  PC2 
+[1,] 0.48 0.66
+[2,] 0.18 0.92
+[3,] 0.93 0.24
+[4,] 0.91 0.30
+[5,] 0.90 0.33
+[6,] 0.92 0.29
+
+                 PC1   PC2
+SS loadings    3.612 1.623
+Proportion Var 0.602 0.270
+Cumulative Var 0.602 0.872
+> 
+> #communality per variable#
+> comm
+[1] 0.6660 0.8788 0.9225 0.9181 0.9189 0.9305
+> 
+> #specific variance per variable#
+> svar
+[1] 0.3340 0.1212 0.0775 0.0819 0.0811 0.0695
+> 
+> #residual matrix#
+> residual
+       V1      V2      V3      V4      V5      V6
+1  0.0000 -0.1886 -0.0358 -0.0328 -0.0288 -0.0300
+2 -0.1886  0.0000  0.0338  0.0272  0.0164  0.0176
+3 -0.0358  0.0338  0.0000  0.0077 -0.0392 -0.0472
+4 -0.0328  0.0272  0.0077  0.0000 -0.0440 -0.0302
+5 -0.0288  0.0164 -0.0392 -0.0440  0.0000  0.0133
+6 -0.0300  0.0176 -0.0472 -0.0302  0.0133  0.0000
+> 

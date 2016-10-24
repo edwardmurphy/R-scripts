@@ -1,0 +1,13 @@
+ch01pr19<-read.table("C:\\Users\\Owner\\Desktop\\CH01PR19.txt")
+x<-ch01pr19$V2
+y<-ch01pr19$V1
+residuals<-residuals(lm(y~x))
+ch01pr19<-cbind(data.frame(ch01pr19),residuals)
+pred.w.plim<-predict(lm(y~x),interval="prediction")
+pred.w.clim<-predict(lm(y~x),interval="confidence")
+ch01pr19<-cbind(data.frame(ch01pr19),pred.w.plim,pred.w.clim)
+anova(lm(y~x))
+summary(lm(y~x))
+vcov(lm(y~x))
+
+

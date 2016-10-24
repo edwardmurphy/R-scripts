@@ -1,0 +1,47 @@
+ch01pr22<-read.table("E:\\SDSU Stats\\SAS\\CH01PR22.txt")
+colnames(ch01pr22)<-c("y","x")
+x<-ch01pr22$x
+y<-ch01pr22$y
+
+#is there an easier way to change the column names of a data frame?#
+
+ch01pr22.lm<-lm(ch01pr22)
+
+
+coef<-coef(ch01pr22.lm)
+coef<-data.frame(t(coef))
+colnames(coef)<-c("b0","b1")
+b0<-coef$b0
+b1<-coef$b1
+
+#is there an easier way to extract the coefficient of lm rather than 
+	creating a data frame, transposing, then changing names as above?#
+
+
+anova(ch01pr22.lm)
+
+summary(ch01pr22.lm)
+
+vcov(ch01pr22.lm)
+
+fitted<-fitted(ch01pr22.lm)
+residuals<-residuals(ch01pr22.lm)
+pred.w.plim<-predict((ch01pr22.lm),se.fit=TRUE,interval="prediction")
+ch01pr22.pi<-cbind(ch01pr22,residuals,pred.w.plim)
+ch01pr22.pi
+
+pred.w.clim<-predict((ch01pr22.lm),se.fit=TRUE,interval="confidence")
+ch01pr22.ci<-cbind(ch01pr22,residuals,pred.w.clim)
+ch01pr22.ci
+
+par(mfrow=c(3,2))
+plot(x,y)
+abline(lsfit(x,y))
+plot(x,residuals)
+abline(0,0)
+plot(fitted,residuals)
+abline(0,0)
+boxplot(residuals)
+qqnorm(residuals)
+qqline(residuals)
+

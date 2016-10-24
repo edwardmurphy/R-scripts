@@ -1,0 +1,69 @@
+data(Puromycin)
+PR2<-subset(Puromycin,state=="treated")
+attach(PR2)
+getInitial( rate ~ SSmicmen( conc, Vm, K ), PR2)
+
+
+Mod1<-nls(rate~((beta1*conc)/(conc+beta2)),data=PR2,start=
+	list(beta1=212,beta2=0.06))
+summary(Mod1)
+
+
+Mod2<-nls(rate~((beta1*conc)/(conc+beta2+beta3*conc^2)),data=PR2,start
+	=list(beta1=212,beta2=0.06,beta3=0))
+summary(Mod2)
+
+
+
+Mod3<-nls(rate~ beta3+((beta1*conc)/(conc+beta2)),data=PR2,start=
+	list(beta1=212,beta2=0.06,beta3=31))
+summary(Mod3)
+
+Mod1.predict<-as.matrix(cbind(PR2$conc,predict(Mod1,PR2)))
+colnames(Mod1.predict)<-c("conc","predicted vel")
+Mod2.predict<-as.matrix(cbind(PR2$conc,predict(Mod2,PR2)))
+colnames(Mod2.predict)<-c("conc","predicted vel")
+Mod3.predict<-as.matrix(cbind(PR2$conc,predict(Mod3,PR2)))
+colnames(Mod3.predict)<-c("conc","predicted vel")
+
+pdf("C:\\Users\\Owner\\Desktop\\MidtermPlots.pdf")
+
+plot(Mod1.predict,type="o",ylim=c(25,250))
+points(Mod2.predict,type="o",pch=22,lty=2)
+points(Mod3.predict,type="o",pch=23,lty=3)
+legend(0,250,c("Model 1","Model 2","Model 3"),pch=21:23,lty=1:3)
+title(main="Predicted Velocity by Concentration for 3 Models")
+
+par(mfrow=c(2,2))
+myplotnls<-function(x){
+	
+	plot(fitted(x),residuals(x),xlab="Fitted Values",
+		ylab="Residuals",main="Residuals vs. Fitted")
+	abline(h=0)
+
+	qqnorm(residuals(x),ylab="Non-Studentized Residuals")	
+	qqline(residuals(x))
+
+	plot(fitted(x),sqrt(abs(residuals(x))),xlab="Fitted Values",
+		ylab="sqrt(|Non-Studentized Residuals|)",main="Scale-Location Plot")
+
+	plot(fitted(x)+residuals(x),fitted(x),ylab="Fitted Values",xlab="Response",
+		main="Fitted vs. Response")
+}
+
+myplotnls(Mod1)
+myplotnls(Mod2)
+myplotnls(Mod3)
+
+dev.off()
+
+c<-0.5
+predict(Mod1,list(conc=c))
+predict(Mod2,list(conc=c))
+predict(Mod3,list(conc=c))
+
+AIC(Mod1)
+AIC(Mod2)
+AIC(Mod3)
+
+

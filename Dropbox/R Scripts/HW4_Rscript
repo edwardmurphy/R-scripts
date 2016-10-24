@@ -1,0 +1,175 @@
+setwd("C://Users//Owner//Documents//STAT678")
+library(survival)
+all<-read.table("HW4all.txt",header=T)
+summary(all)
+#No NAs
+colnames(all)
+ [1] "time"      "status"    "race"      "poverty"   "smoke"     "alcohol"  
+ [7] "age"       "year"      "edu"       "pren.care"
+
+attach(all)
+fit.2<-coxph(Surv(time,status)~factor(race)+poverty+smoke+alcohol+age+year+edu+pren.care,method='breslow')
+#code race as factor- three levels (1=white,2=black,3=other)
+
+par(mfrow=c(2,2))
+#omit age
+fit.2a<-update(fit.2,~.-age)
+plot(age,resid(fit.2a),xlab="Age",ylab="Martingale residual")
+lines(lowess(age,resid(fit.2a)))
+abline(lm(resid(fit.2a)~age),lty=3)
+#horizontal line, no effect of age
+#p-value from fit.2 was 0.44, so consistent result
+
+#omit year
+fit.2b<-update(fit.2,~.-year)
+plot(year,resid(fit.2b),xlab="Year of Birth",ylab="Martingale residual")
+lines(lowess(year,resid(fit.2b)))
+abline(lm(resid(fit.2b)~year),lty=3)
+#linear fxn of year is appropriate
+
+#omit edu
+fit.2c<-update(fit.2,~.-edu)
+plot(edu,resid(fit.2c),xlab="Years of Education",ylab="Martingale residual")
+lines(lowess(edu,resid(fit.2c)))
+abline(lm(resid(fit.2c)~edu),lty=3)
+#linear fxn of edu is appropriate
+
+###remove age, add year and edu as linear terms
+
+##model building
+fit.3<-update(fit.2,~.-age)
+#remove alcohol and pren.care
+fit.3a<-update(fit.3,~.-alcohol-pren.care)
+#LRT 
+anova(fit.3a,fit.2)
+#keep reduced
+> fit.3a
+Call:
+coxph(formula = Surv(time, status) ~ factor(race) + poverty + 
+    smoke + year + edu, method = "breslow")
+
+
+                 coef exp(coef) se(coef)     z       p
+factor(race)2  0.1727     1.189   0.1044  1.66 0.09800
+factor(race)3  0.2784     1.321   0.0973  2.86 0.00420
+poverty       -0.1841     0.832   0.0925 -1.99 0.04700
+smoke          0.2502     1.284   0.0785  3.19 0.00140
+year           0.0679     1.070   0.0179  3.80 0.00014
+edu           -0.0583     0.943   0.0201 -2.90 0.00370
+
+Likelihood ratio test=39.2  on 6 df, p=6.44e-07  n= 927 
+
+fit.4<-cox.zph(fit.3a)
+plot(fit.4)
+
+#edu coeff is time-varying?
+edugrp<-1+(edu>=9)+(edu>=12)
+table(edugrp)
+
+fit.4a<-update(fit.3a,~.-edu+strata(edugrp))
+fit.4b<-survfit(fit.4a)
+par(mfrow=c(1,1))
+plot(fit.4b,fun="cloglog",lty=1:3,xlab="log(time)",ylab="log(-log(S))")
+legend(1,2,c("Did not complete grade school","Did not complete high school","High school graduate"),lty=c(1:3))
+#plots cross, so time-variation is confirmed. stratify on edugrp
+fit.4a
+#poverty is NS now- does that mean that edu and poverty interact in original model?
+fit.4b<-update(fit.3a,~.-edu-poverty+edu*poverty)
+fit.4c<-survfit(fit.4b)
+#interaction terms is barely significant, but does this change the time-varying nature of edu coeff?
+fit.4d<-cox.zph(fit.4b)
+#edu p-value is borderline, so this model is preferred b/c no stratification
+>fit.4b
+Call:
+coxph(formula = Surv(time, status) ~ factor(race) + smoke + year + 
+    edu + poverty + poverty:edu, method = "breslow")
+
+
+                 coef exp(coef) se(coef)     z       p
+factor(race)2  0.1509     1.163   0.1049  1.44 1.5e-01
+factor(race)3  0.2777     1.320   0.0971  2.86 4.3e-03
+smoke          0.2454     1.278   0.0784  3.13 1.8e-03
+year           0.0697     1.072   0.0178  3.91 9.2e-05
+edu           -0.0791     0.924   0.0226 -3.50 4.6e-04
+poverty       -1.2093     0.298   0.5134 -2.36 1.8e-02
+edu:poverty    0.0912     1.095   0.0445  2.05 4.1e-02
+
+Likelihood ratio test=43.4  on 7 df, p=2.78e-07  n= 927 
+
+#calculate risk scores
+edupoverty<-edu*poverty
+race.rs<-rep(0,length(race))
+#need loop to calculate race risk score due to coding
+for (i in 1:length(race)){
+if (race[i]==2) race.rs[i]<-0.1509
+else if (race[i]==3) race.rs[i]<-0.2777
+}
+
+rs<-race.rs+0.2454*smoke+0.0697*year-0.0791*edu-1.2093*poverty+0.0912*edupoverty
+#plot deviance residuals
+plot(rs,resid(fit.4b,'dev'),xlab="Risk Score",ylab="Deviance Residual")
+#no outliers
+
+#influential points
+sresid<-resid(fit.4b,'score')
+
+plot(1:length(smoke),sresid[,3],xlab="Patient",ylab="Score Residual for Smoke Covariate")
+identify(1:length(smoke),sresid[,3])
+plot(year,sresid[,4],xlab="Year",ylab="Score Residual")
+identify(year,sresid[,4])
+plot(edu,sresid[,5],xlab="Education",ylab="Score Residual")
+identify(edu,sresid[,5])
+plot(1:length(poverty),sresid[,6])
+identify(1:length(poverty),sresid[,6])
+plot(edupoverty,sresid[,7],xlab="Education:Poverty",ylab="Score Residual",ylim=c(-60,20))
+identify(edupoverty,sresid[,7])
+
+#fit learning set
+learn<-read.table("HW4learn.txt",header=T)
+fit.7a<-coxph(Surv(time,status)~factor(race)+year+smoke+edu*poverty,method='breslow',data=learn)
+fit.7as<-survfit(fit.7a)
+plot(fit.7as,conf.int="FALSE",xlab="Days",ylab="Probability of Breast Feeding")
+#fit validation set
+val<-read.table("HW4val.txt",header=T)
+fit.7b<-coxph(Surv(time,status)~factor(race)+year+smoke+edu*poverty,method='breslow',data=val)
+fit.7bs<-survfit(fit.7b)
+lines(fit.7bs,lty=2)
+legend(60,1,c("Learning Dataset","Validation Dataset"),lty=c(1:2))
+
+#race=black pval of 0.05 in val set- not sig before
+
+#compare coef and se of each model
+tablecomp<-round(cbind(fit.7a$coef,sqrt(diag(fit.7a$var)),fit.7b$coef,sqrt(diag(fit.7b$var))),4)
+
+#compute rs for val set based on learn set coef
+
+val$edupoverty<-val$edu*val$poverty
+learn$edupoverty<-learn$edu*learn$poverty
+race.rs<-rep(0,length(val$race))
+#need loop to calculate race risk score due to coding
+for (i in 1:length(val$race)){
+if (val$race[i]==2) race.rs[i]<-0.0645
+else if (val$race[i]==3) race.rs[i]<-0.2805
+}
+
+rs<-race.rs+0.0683*val$year+0.2406*val$smoke-0.0777*val$edu-0.9822*val$poverty+0.0652*val$edupoverty
+
+quantile(rs,c(0.33,0.67))
+#     33%      67% 
+#  4.630528 4.840500
+
+riskgrp<-ifelse(rs<=4.630528,1,2)
+riskgrp<-ifelse(rs>=4.840500,3,riskgrp)
+table(riskgrp)
+
+#observed
+fit.7c<-survfit(Surv(val$time,val$status)~riskgrp)
+#plot(fit.7c,xlab="Days",ylab="Probability of Breast Feeding",lty=1:3)
+plot(fit.7c,xlab="Days",ylab="Probability of Breast Feeding",lty=1:3,xlim=c(0,50))
+
+
+#expected
+zvalues<-data.frame(val$race,val$year,val$smoke,val$edu,val$poverty,val$edupoverty)
+expect<-survexp(~riskgrp+ratetable(race=race,year=year,smoke=smoke,edu=edu,poverty=poverty),data=zvalues,ratetable=fit.7a)
+lines(expect,lty=1:3,col='purple')
+legend(20,1,c("Low Risk","Medium Risk","High Risk"),lty=c(1:3))

@@ -1,0 +1,8 @@
+X<-cbind(c(rep(1,8)),c(rep(1,2),rep(0,6)),c(rep(0,2),rep(1,2),rep(0,4)),c(rep(0,4),
+rep(1,2),rep(0,2)),c(rep(0,6),rep(1,2)))
+
+X.star<-cbind(c(rep(1,2),rep(0,6)),c(rep(0,2),rep(1,2),rep(0,4)),c(rep(0,4),
+rep(1,2),rep(0,2)),c(rep(0,6),rep(1,2)))
+
+W<-solve(t(X.star) %*% X.star) %*% t(X.star) %*% X
+W

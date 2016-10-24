@@ -1,0 +1,46 @@
+PR1<-read.table("C:\\Users\\Owner\\Desktop\\Stats\\STAT700\\HW3gpa.txt",header=T)
+attach(PR1)
+
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- abs(cor(x, y))
+    txt <- format(c(r, 0.123456789), digits=digits)[1]
+    txt <- paste(prefix, txt, sep="")
+    if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+    text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+
+pairs(PR1[,-1], panel=function(x,y)
+{
+	points(x,y) 
+	lines(lowess(x,y))
+},
+lower.panel=panel.cor)
+
+par(mfrow=c(2,2))
+PR1.fit<-lm(GPA~SATmath+SATverbal+HSmath+HSenglish,data=PR1)
+summary(PR1.fit)
+anova(PR1.fit)
+plot(PR1.fit)
+
+PR1.fit1<-lm(GPA~SATmath+SATverbal+HSmath,data=PR1)
+anova(PR1.fit,PR1.fit1)
+
+qf(0.95,4,15)
+
+stepAIC<-step(PR1.fit)
+drop1(PR1.fit,~.,test="F")
+
+PR1.fit1<-lm(GPA~SATmath+SATverbal+HSmath,data=PR1)
+PR1.fit2<-lm(GPA~SATmath+SATverbal,data=PR1)
+
+library(leaps)
+adjr<-leaps(PR1[,3:6],PR1$GPA,method="adjr2")
+plot(adjr$adjr2)
+
+
+
+
+

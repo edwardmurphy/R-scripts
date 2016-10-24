@@ -1,0 +1,13 @@
+library(lattice)
+PR3<-chickwts
+PR3.fit<-lm(weight~feed,data=PR3)
+bwplot(feed~weight,data=PR3,panel=panel.violin)
+bwplot(feed~weight,data=PR3)
+pairwise.t.test(PR3$weight,PR3$feed)
+pairwise.t.test(PR3$weight,PR3$feed,pool.sd=FALSE)
+PR3.fit.aov<-aov(weight~feed,data=PR3)
+summary(PR3.fit.aov)
+plot(PR3.fit.aov)
+
+TukeyHSD(PR3.fit.aov)
+plot(TukeyHSD(PR3.fit.aov))

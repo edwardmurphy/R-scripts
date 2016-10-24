@@ -1,0 +1,35 @@
+data<-read.table("C:\\Users\\Owner\\Desktop\\T5-2.dat")
+blah<-data$V1
+blah2<-data$V2
+X<-data.frame(cbind(blah,blah2))
+xbar<-mean(X)
+S<-cov(X)
+var<-diag(S)
+
+n<-nrow(X)
+p<-ncol(X)
+
+
+*get critical values
+
+alpha=0.05
+cvt2<-qf(1-alpha,p,n-p)
+cvb<-qt(1-(alpha/(2*p)),n-1)
+
+*T-square CI
+
+
+ct2l<-xbar-sqrt((p*(n-1)/(n-p)*cvt2*(var/n)))
+ct2u<-xbar+sqrt((p*(n-1)/(n-p)*cvt2*(var/n)))
+t2ci<-cbind(ct2l,ct2u)
+
+*Bonferroni CI
+
+cbl<-xbar-cvb*sqrt(var/n)
+cbu<-xbar+cvb*sqrt(var/n)
+bci<-cbind(cbl,cbu)
+
+
+
+
+

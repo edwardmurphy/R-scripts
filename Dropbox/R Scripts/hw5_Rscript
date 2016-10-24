@@ -1,0 +1,97 @@
+detach()
+Sweave("HW5 Sweave.nw")
+
+options(digits=3)
+library(survival)
+setwd("C://Users//Owner//Documents//STAT678")
+data=read.table("tongue cancer.txt",header=F,skip=9)
+colnames(data)=c("tumor","time","delta")
+attach(data)
+
+###Problem 12.1
+aneu.wei=survreg(Surv(time,delta)~1,dist="weibull",subset(data,tumor==1))
+aneu.lam=as.vector(exp(-coef(aneu.wei)/aneu.wei$scale))
+aneu.alph=1/aneu.wei$scale
+
+dip.wei=survreg(Surv(time,delta)~1,dist="weibull",subset(data,tumor==2))
+dip.lam=as.vector(exp(-coef(dip.wei)/dip.wei$scale))
+dip.alph=1/dip.wei$scale
+
+####to test if alpha (equiv scale)=1, fit exponential (where alpha=1), and
+####perform LRT using anova b/w reduced and full model
+
+aneu.exp=survreg(Surv(time,delta)~1,dist="exponential",subset(data,tumor==1))
+anova(aneu.exp,aneu.wei)
+
+dip.exp=survreg(Surv(time,delta)~1,dist="exponential",subset(data,tumor==2))
+anova(dip.exp,dip.wei)
+
+aneuWald= (aneu.wei$scale-1)/(aneu.wei$scale*sqrt(aneu.wei$var[2,2]))
+2*(1-pnorm(aneuWald))
+
+dipWald= (dip.wei$scale-1)/(dip.wei$scale*sqrt(dip.wei$var[2,2]))
+2*(1-pnorm(dipWald))
+
+aneuCode1=ifelse(tumor==1,1,0)
+
+aneu.reg=survreg(Surv(time,delta)~aneuCode1,dist="weibull")
+Beta=-0.669/1.24
+RR=exp(Beta)
+gam=as.vector(aneu.reg$coefficients[2])
+A=cbind(-1/aneu.reg$scale, gam/aneu.reg$scale)
+betaCov=aneu.reg$var[-1,-1]
+seBeta=sqrt(A%*%betaCov%*%t(A))
+
+cbind(exp(Beta-1.96*seBeta),exp(Beta+1.96*seBeta))
+
+af=exp(-gam)
+cbind(exp(-gam-1.96*sqrt(aneu.reg$var[2,2])), exp(-gam+1.96*sqrt(aneu.reg$var[2,2])))
+
+######Problem 12.5
+aneu.log=survreg(Surv(time,delta)~1,dist="loglogi",subset(data,tumor==1))
+aneu.log.lam=as.vector(exp(-coef(aneu.log)/aneu.log$scale))
+aneu.log.alph=1/aneu.log$scale
+
+dip.log=survreg(Surv(time,delta)~1,dist="loglogi",subset(data,tumor==2))
+dip.log.lam=as.vector(exp(-coef(dip.log)/dip.log$scale))
+dip.log.alph=1/dip.log$scale
+
+aneuWald.log= (aneu.log$scale-1)/(aneu.log$scale*sqrt(aneu.log$var[2,2]))
+2*(pnorm(aneuWald.log))
+
+dipWald.log= (dip.log$scale-1)/(dip.log$scale*sqrt(dip.log$var[2,2]))
+2*(pnorm(dipWald.log))
+
+aneu.reg.log=survreg(Surv(time,delta)~aneuCode1,dist="loglogi")
+gam.log=as.vector(aneu.reg.log$coefficients[2])
+af.log=exp(-gam.log)
+cbind(exp(-gam.log-1.96*sqrt(aneu.reg.log$var[2,2])), exp(-gam.log+1.96*sqrt(aneu.reg.log$var[2,2])))
+
+Beta.log=-0.7906/0.96
+RR.log=exp(Beta.log)
+A.log=cbind(-1/aneu.reg.log$scale, gam.log/aneu.reg.log$scale)
+betaCov.log=aneu.reg.log$var[-1,-1]
+seBeta.log=sqrt(A.log%*%betaCov.log%*%t(A.log))
+
+cbind(exp(Beta.log-1.96*seBeta.log),exp(Beta.log+1.96*seBeta.log))
+
+######Problem 5
+detach()
+options(digits=5)
+larynx<-read.table("larynx.txt")
+stage<-larynx[,1]
+lar.time<-larynx[,2]
+age<-larynx[,3]
+lar.delta<-larynx[,5]
+
+lar.exp<-survreg(Surv(lar.time,lar.delta)~factor(stage)+age,dist="exponential")
+lar.wei<-survreg(Surv(lar.time,lar.delta)~factor(stage)+age,dist="weibull")
+lar.llog<-survreg(Surv(lar.time,lar.delta)~factor(stage)+age,dist="loglogi")
+lar.lnorm<-survreg(Surv(lar.time,lar.delta)~factor(stage)+age,dist="lognorm")
+
+#AIC
+AIC=cbind(-2*lar.exp$loglik[2]+2*5, -2*lar.wei$loglik[2]+2*6, 
+  -2*lar.llog$loglik[2]+2*6, -2*lar.lnorm$loglik[2]+2*6)
+colnames(AIC)<-c("exponential","Weibull","log-logistic","lognormal")
+
+ 

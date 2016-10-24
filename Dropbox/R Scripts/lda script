@@ -1,0 +1,9 @@
+gpa<-read.table("C:\\Users\\Owner\\Desktop\\gpa.txt")
+colnames(gpa)<-c("admit","gpa","gmat")
+d<-lda(admit~gpa+gmat,data=gpa)
+predict(d,gpa)
+gpaclass<-cbind(gpa,predict(d,gpa)$class)
+colnames(gpaclass)<-c("admit","gpa","gmat","post")
+mean(gpaclass$admit!=gpaclass$post)
+gpaclass$admit!=gpaclass$post
+

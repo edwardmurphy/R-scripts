@@ -1,0 +1,74 @@
+Tsq.conf.int <- function (X, A=NULL, level=0.95)
+{ 
+  # Convert X and A to matrices, if they're not matrices already, from 
+  # vectors or data frames. 
+
+  X <- as.matrix(X)
+  if (is.null(A))
+  { A <- diag(ncol(X))
+    colnames(A) <- colnames(X)
+  }
+  else
+  { A <- as.matrix(A)
+  }
+
+  # Set n to the number of observations, p to the number of variables.
+
+  n <- nrow(X)
+  p <- ncol(X)
+
+  # Stop if arguments are invalid.
+
+  if (!is.numeric(X))
+  { stop("Data must be numeric")
+  }
+
+  if (!is.numeric(A))
+  { stop("Coefficients for linear combinations must be numeric")
+  }
+  
+  if (nrow(A)!=p)
+  { stop("Wrong length for coefficient vector(s)")
+  }
+
+  if (n<p)
+  { stop("Must have at least as many observations as variables")
+  }
+
+  if (!is.numeric(level) || length(level)!=1 || level<=0 || level>=1)
+  { stop("Confidence level must be between 0 and 1")
+  }
+
+  # Create a matrix that will hold the confidence intervals.
+
+  CI <- matrix(NA,2,ncol(A))
+  rownames(CI) <- c("lower","upper")
+  colnames(CI) <- colnames(A)
+
+  # Find F distribution quantile used to construct confidence intervals.
+
+  F <- qf(level,p,n-p)
+
+  # Compute the sample covariance matrix of the original variables.
+
+  C <- cov(X)
+
+  # Find the confidence intervals for the specified linear combinations.
+
+  for (i in 1:ncol(A))
+  { 
+    # Find the sample mean and variance of this linear combination.
+
+    m <- mean (X %*% A[,i])
+    v <- t(A[,i]) %*% C %*% A[,i]
+
+    # Find the confidence interval for this linear combination.
+
+    CI[1,i] <- m - sqrt ((p*(n-1)/n/(n-p)) * F * v)
+    CI[2,i] <- m + sqrt ((p*(n-1)/n/(n-p)) * F * v)
+  }
+
+  # Return all the confidence intervals.
+
+  CI
+}

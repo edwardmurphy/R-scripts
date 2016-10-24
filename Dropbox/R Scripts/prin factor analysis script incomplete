@@ -1,0 +1,39 @@
+#cormat is correlation matrix#
+
+
+eigen(cormat)
+a<-eigen(cormat)$values
+
+#a is eigenvalues#
+
+b<-sqrt(a)
+
+#b is square root of eigenvalues to scale eigenvectors for loadings#
+
+evecs<-eigen(cormat)$vectors
+
+#matrix of eigenvectors#
+
+n<-length(b)
+
+for(i in 1:n){
+
+	loadings<-as.matrix(b[i]*evecs[,i],ncol=6)
+	
+	print(loadings)
+
+}	
+
+
+#create matrix of scaled eigenvectors for nonrotated princomp factors#
+#figure out how to replicate this using a single function#
+l1<--(b[1]*evecs[,1])
+
+#eigen(cormat) gives all neg values for 1st eigenvec
+l2<-b[2]*evecs[,2]
+l3<-b[3]*evecs[,3]
+
+loadings<-data.frame(cbind(l1,l2,l3))
+loadings
+
+

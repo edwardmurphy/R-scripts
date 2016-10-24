@@ -1,0 +1,33 @@
+library(nlme)
+Dental<-read.table("dental.txt",header=T)
+Dental.grouped<-groupedData(distances~ages|Patient.ID,data=Dental)
+plot(Dental.grouped)
+
+#since ages start at 8, intercept has no meaning. adjust ages below
+#to ages-8.
+
+fit.int<-lme(distances~ages,data=Dental,random=~1|Patient.ID)
+fit.fixed<-gls(distances~ages,data=Dental)
+anova(fit.fixed,fit.int)
+
+#reject null hypothesis that random intercept should not be in model
+#because reduced model is null
+
+fit.int.sex<-lme(distances~ages+sex,data=Dental,random=~1|Patient.ID)
+summary(fit.int.sex)
+
+#based on t-test, include sex covariate
+#interesting to note that when sex is included, random intercept variance
+#is decreased- what is effect on log-likelihood test to include
+#random intercept?
+
+fit.fixed.sex<-gls(distances~ages+sex,data=Dental)
+anova(fit.fixed.sex,fit.int.sex)
+
+#still reject- so include random intercept and sex covariate
+
+fit.slope.sex<-lme(distances~ages+sex,data=Dental,random=~ages|Patient.ID)
+anova(fit.int.sex,fit.slope.sex)
+
+#model with random intercept but not random slope, including sex covariate
+#but no interaction term

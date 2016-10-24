@@ -1,0 +1,55 @@
+# copy this text and paste it into an R session,
+# or just type
+# source("http://www.stat.ncsu.edu/people/bloomfield/courses/st731/chisqplot.r")
+# at the R prompt.
+`chisqplot` <-
+function(x, denomDF = Inf)
+{
+# Chi-square plot for assessing multivariate normality
+# (Johnson and Wichern, Section 4.6)
+	dsq = distances(x);
+# qchisq() provides the theoretical
+# quantiles, ppoints() provides the list of probabilities (i - 1/2)/n,
+# and sort(chisq) provides the order statistics:
+        p = ncol(x);
+	plot(p * qf(ppoints(dsq), p, denomDF), sort(dsq),
+	     xlab = paste("Theoretical Quantiles (", p, " df)", sep = ""),
+	     ylab = "Sample Quantiles");
+	title(if (is.finite(denomDF))
+                   paste("F Q-Q Plot (", p, ",", denomDF, "df)")
+              else "Chisquare Q-Q Plot");
+}
+
+`distances` <-
+function(x)
+{
+#
+# Generalized squared distances
+# (Johnson and Wichern, Section 4.6, equation 4-32)
+#
+# the argument x may be either a matrix or a data-frame, 
+# so first convert it to matrix form:
+	x = as.matrix(x);
+# y is the transpose of the matrix of deviations:
+	y = t(x) - apply(x, 2, mean);
+#
+# we want to calculate the list of values z' S^-1 z,
+# where z is a column of y and S is the sample covariance matrix,
+# but we could use various ways to get it; 
+# they are the diagonal elements of the matrix y' S^-1 y, 
+# so the simplest way would be:
+#
+# S = var(x);
+# chisq = diag(t(y) %*% solve(S) %*% y);
+#
+# calculating and then discarding the off-diagonal elements 
+# is wasteful, and we can avoid it using:
+#
+# chisq = apply(y * solve(S, y), 2, sum);
+#
+# but the Q-R decomposition has better numerical properties:
+	q = qr.Q(qr(t(y)));
+	(nrow(x) - 1) * apply(q^2, 1, sum);
+}
+
+

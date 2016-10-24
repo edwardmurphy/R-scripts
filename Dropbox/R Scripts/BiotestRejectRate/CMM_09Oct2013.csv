@@ -1,0 +1,40 @@
+Part No. Prefix,Part No.,Lot No.,Date of Fill,Acceptably Filled Vials Received by VI,Vial Quantity Actually Inspected,High Volume (HIV),Low Volume (LOV),"Wrong Size, Type or Color of Stopper/Plunger (WRS)",Missing or Incorrectly Seated Stopper/Plunger (NOS),"Wrong Seal, Cap or Needle Cover (WRC)","Missing Seal, Cap or Needle Cover (NOC)",Wrong Container (WRG),Cracked or Broken Container (CRK),Interior Glass Defects (IGD),Particles (PTC),Fibers (FIB),Porduct or Particulates Aroung Stopper/Plunger (PRD),Glass Deformities (MGD),Stopper Discoloration (SDC),Cloudy or Discolored Solution/Cake (DCP),Etched Glass (ETC),Cosmetic Glass Defects (GLS),Gross Denting of the Seal/Cap (GRD),"Discoloration of the Seal, Cap or Needle Cover (DCC)",Other 1,Explanation,Segregation Comments,AQL Comments,Rejected After Inspection Complete: Comments
+4-CO-,005,120001,13-Feb-12,860,955,0,0,0,0,0,2,0,0,0,12,6,0,0,0,0,0,0,1,0,0,,95 segregated vials inspected and used as samples at client request,None,None
+4-CO-,005,120003,15-Feb-12,1368,1368,0,0,0,0,0,0,0,0,0,10,5,0,0,0,0,0,1,1,0,0,,None,1 AQL defect (LSC) included,1 (NOC)
+4-CO-,005,120005,17-Feb-12,1250,1293,0,0,0,2,0,1,0,0,2,9,3,0,0,0,0,0,1,1,0,0,,"Of 53 segregated vials, 43 were inspected and used as samples at client request",None,1 (NOC)
+4-CO-,005,120007,22-Feb-12,1550,1550,0,0,0,0,0,0,0,0,0,10,1,0,0,0,0,0,0,1,0,0,,None,None,None
+4-CO-,005,120009,24-Feb-12,1442,1478,0,0,0,0,0,0,0,0,0,15,5,0,0,0,0,0,0,1,0,0,,"Of 39 segregated vials, 63 were inspected and used as samples at client request",None,None
+4-CO-,005,120011,27-Feb-12,1604,1613,0,0,0,0,0,2,0,0,0,15,5,0,0,0,0,0,0,0,0,0,,9 segregated vials inspected and used as samples at client request,None,None
+4-CO-,005,120013,15-Mar-12,1416,1416,0,0,0,0,0,2,0,0,0,10,1,0,0,0,0,0,4,0,0,0,,None,2 AQL defects (GLS) included,None
+4-CO-,005,120015,21-Mar-12,1507,1507,0,0,0,0,0,1,0,2,0,16,4,0,0,0,0,0,13,0,0,0,,None,"2 AQL defects (1x PTC, 1x FIB) included",1 (NOC)
+4-CO-,005,120017,30-Mar-12,1677,1677,0,0,0,0,0,0,0,1,0,24,3,0,0,0,0,0,5,0,0,0,,None,None,None
+4-CO-,005,120019,04-Apr-12,1597,1597,0,0,0,0,0,0,0,2,0,13,1,0,0,0,0,0,9,0,0,2,dropped,None,None,None
+4-CO-,005,120021,11-Apr-12,1705,1705,0,0,0,1,0,1,0,3,0,23,10,0,0,0,0,0,25,1,0,0,,None,1 AQL defect (NOS) included,None
+4-CO-,005,120023,16-Apr-12,1716,1716,0,0,0,0,0,0,0,2,0,14,5,0,0,0,0,0,10,0,0,0,,None,None,None
+4-CO-,005,120025,14-Sep-12,1713,1713,0,0,0,0,0,2,0,0,1,51,7,0,0,0,0,0,24,11,0,0,,None,None,None
+4-CO-,005,120027,18-Sep-12,1552,1552,0,0,0,0,0,1,0,1,1,27,2,0,0,0,0,0,33,7,0,0,,None,1 AQL defect (GLS) included,None
+4-CO-,005,120029,16-Oct-12,1717,1717,0,0,0,0,0,0,0,0,1,50,3,0,0,0,0,0,32,0,0,0,,None,None,None
+4-CO-,005,120031,24-Oct-12,1715,1715,0,0,0,0,0,1,0,0,5,33,1,0,0,0,0,0,29,1,0,0,,None,1 AQL defect (FIB) included,None
+4-CO-,005,120033,02-Nov-12,1294,1294,0,0,0,0,0,1,0,3,1,17,3,0,0,0,0,0,51,0,0,0,,None,1 AQL defect (FIB) included,None
+4-CO-,005,120035,06-Nov-12,1726,1726,0,0,0,0,0,1,0,2,1,43,2,0,0,0,0,0,76,1,0,0,,None,None,None
+4-CO-,005,120037,15-Nov-12,1798,1798,0,0,0,0,0,6,0,5,9,31,4,0,0,0,0,1,84,3,0,0,,None,"2 AQL defects (1x ETC, 1x GLS) included",None
+4-CO-,005,120039,20-Nov-12,1792,1792,0,0,0,0,0,2,0,4,6,44,46,0,0,0,0,2,75,0,0,0,,None,"7 AQL defects (5x FIB, 2x ETC) included",None
+4-CO-,005,120041,27-Nov-12,1718,1718,0,0,0,0,0,1,0,0,0,32,12,0,0,0,0,1,21,0,0,0,,None,1 AQL defect (GLS) included,None
+4-CO-,005,120043,05-Dec-12,1722,1722,0,0,0,0,0,2,0,29,0,26,0,0,0,0,0,0,14,1,0,37,mold #43,None,None,None
+4-CO-,005,130010,18-May-13,1354,1354,2,11,0,0,0,2,0,0,0,21,1,0,0,0,0,0,26,1,0,0,,None,"3 AQL defects (1x PTC, 2x GLS) included",None
+4-CO-,005,130008,20-May-13,1477,1477,0,0,0,0,0,1,0,5,0,28,4,0,0,0,0,0,22,0,0,0,,None,1 AQL defect (PTC) included,None
+4-CO-,005,130136,22-May-13,1487,1487,0,0,0,0,0,2,0,1,0,35,104,0,0,0,0,0,39,4,0,0,,None,5 AQL defects (all FIB),None
+4-CO-,005,130012,24-May-13,1630,1630,0,0,0,0,0,0,0,0,0,33,55,0,0,0,0,0,29,3,0,0,,None,"2 AQL defects (1x FIB, 1x GRD) included",None
+4-CO-,005,130018,28-May-13,1624,1624,0,0,0,0,0,1,0,3,0,42,9,0,0,0,0,0,25,1,2,0,,None,1 AQL defect (FIB) included,None
+4-CO-,005,130020,29-May-13,1633,1633,0,0,0,2,0,0,0,4,0,55,17,0,0,0,0,0,44,1,0,0,,None,1 AQL defect (GLS) included,1 (dropped vial)
+4-CO-,005,130022,31-May-13,1546,1546,0,0,0,0,0,0,0,1,0,18,7,0,0,0,0,0,27,1,0,0,,None,None,None
+4-CO-,005,130024,03-Jun-13,1491,1491,0,0,0,0,0,2,0,2,0,18,1,0,0,0,0,0,10,1,0,0,,None,None,None
+4-CO-,005,130026,04-Jun-13,1349,1349,0,0,0,0,0,4,0,1,0,25,3,0,0,0,0,0,19,4,0,0,,None,None,None
+4-CO-,005,130028,05-Jun-13,1646,1646,0,0,0,3,0,2,0,2,0,32,2,0,0,0,0,0,32,1,0,0,,None,1 AQL defect (PTC) included,None
+4-CO-,005,130032,06-Jun-13,1742,1742,0,0,0,0,0,1,0,4,0,47,6,0,0,0,0,0,30,6,0,0,,None,"2 AQL defectcs (1x PTC, 1x GLS)",None
+4-CO-,005,130034,20-Jun-13,1734,1734,0,0,0,0,0,1,0,3,0,56,4,0,0,0,0,0,35,2,0,0,,None,1 AQL defect (FIB) included,None
+4-CO-,005,130036,21-Jun-13,1494,1494,0,0,0,0,0,0,0,1,0,48,134,0,0,0,0,0,26,2,0,0,,None,"8 AQL defects (6x W-FIB, 2x B-PTC)",None
+4-CO-,005,130038,27-Jun-13,1771,1771,0,0,0,0,0,0,0,3,0,40,11,0,0,1,0,0,18,0,0,0,,None,4 AQL defects (GLS) included,None
+4-CO-,005,130040,28-Jun-13,1568,1650,0,0,0,0,0,2,0,1,0,78,19,0,0,0,0,0,26,0,0,0,,82 segregated vials incorporated into bulk batch and inspected,"5 AQL defects (2x W-FIB, 3x GLS)",None
+4-CO-,005,130042,08-Jul-13,1809,1809,0,0,0,0,0,0,0,1,0,56,26,0,0,0,0,0,20,0,0,0,,None,"3 AQL defects (1x B-PTC, 2x GLS)",None
+4-CO-,005,130048,09-Jul-13,1820,1820,0,0,0,0,0,1,0,2,0,36,7,0,0,0,0,0,27,2,0,0,,None,"2AQL defects (1x B-PTC, 1x flip off)",None

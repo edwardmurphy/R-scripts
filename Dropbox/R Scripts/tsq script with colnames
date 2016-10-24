@@ -1,0 +1,37 @@
+data<-read.table("C:\\Users\\Owner\\Desktop\\T5-2.dat")
+blah<-data$V1
+blah2<-data$V2
+X<-data.frame(cbind(blah,blah2))
+
+
+
+x1<-c(2,8,6,8)
+x2<-c(12,9,9,10)
+X<-data.frame(cbind(x1,x2))
+xbar<-mean(X)
+mu<-c(7,11)
+S<-cov(X)
+Sinv<-solve(S)
+
+n<-nrow(X)
+p<-ncol(X)
+
+tsq<-n*t(xbar-mu)%*%Sinv%*%(xbar-mu)
+
+alpha=0.05
+fconst<-((n-1)*p)/(n-p)
+
+fcompare<-fconst*qf(1-alpha,p,n-p)
+
+ifelse(tsq>fcompare,"reject Ho","do not reject Ho")
+
+adjusttsq<-(1/fconst)*tsq
+
+pval<-1-pf(adjusttsq,p,n-p)
+
+ifelse(pval<alpha,"reject Ho","do not reject Ho")
+
+
+
+
+

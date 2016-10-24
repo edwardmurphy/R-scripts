@@ -1,0 +1,39 @@
+rfl1<-c(.484,.375,.603,.519,.861,.744)
+rfl2<-c(.411,.319,.717,.855,.499,.594)
+rfl<-cbind(rfl1,rfl2)
+comm<-rfl1^2+rfl2^2
+svar<-1-comm
+p<-length(rfl1)
+pvar1<-sum(rfl1^2)/p
+pvar2<-sum(rfl2^2)/p
+tvar<-pvar1+pvar2
+R<-read.table("C:\\Users\\Owner\\Desktop\\E9-14.txt")
+psi<-diag(svar)
+residual<-R-rfl%*%t(rfl)-psi
+
+#rotated ML factor loadings (varimax)#
+rfl
+
+#communality per variable#
+comm
+
+#specific variance per variable#
+svar
+
+#proportion of variance explained by factor 1#
+pvar1
+
+#proportion of variance explained by factor 2#
+pvar2
+
+#cumulative proportion of variance explained by factors 1 & 2#
+tvar
+
+#residual matrix#
+residual
+
+
+
+
+
+

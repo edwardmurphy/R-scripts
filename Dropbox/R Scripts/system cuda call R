@@ -1,0 +1,6 @@
+system("nvcc -arch=sm_13 -I/usr/share/R/include -Xcompiler -fpic -g -O2 -c addVecGPU.cu -o addVecGPU.o")
+
+system("nvcc -arch=sm_13 -I/usr/share/R/include -Xcompiler -fpic -g -O2 -c addVecGPU.cu")
+
+
+dyn.load(paste("addVecGPU", .Platform$dynlib.ext, sep=""))

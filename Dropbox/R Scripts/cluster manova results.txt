@@ -1,0 +1,3726 @@
+proc glm data=a;
+class Type;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=Type;
+contrast 'type effect' Type 1 -1 0, Type 1 0 -1;
+manova;
+means Type;
+run;
+
+proc glm data=a;
+class Type;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=Type;
+contrast 'Chem v Groc' Type 1 -1 0;
+manova;
+run;
+
+proc glm data=a; 
+class Type; 
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=Type;
+contrast 'Chem v Heal' Type 1 0 -1;
+manova;
+run;
+
+proc glm data=a; 
+class Type; 
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=Type;
+contrast 'Groc v Heal' Type 0 1 -1;
+manova;
+run;
+
+proc glm data=a; 
+class Type; 
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=Type;
+contrast 'Chem Groc v Heal' Type 1 1 -2;
+manova;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL effect' CL 1 -1 0 0,CL 1 0 -1 0,CL 1 0 0 -1;
+manova;
+means CL;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL1 v CL2' CL 1 -1 0 0;
+manova;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL1 v CL3' CL 1 0 -1 0;
+manova;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL1 v CL4' CL 1 0 0 -1;
+manova;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL2 v CL3' CL 0 1 -1 0;
+manova;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL2 v CL4' CL 0 1 0 -1;
+manova;
+run;
+
+proc glm data=a;
+class CL;
+model ROR5 DE SALESGR5 EPS5 NPM1 PE PAYOUTR1=CL;
+contrast 'CL3 v CL4' CL 0 0 1 -1;
+manova;
+run;
+
+
+ROR5
+
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2     22.71178095     11.35589048       1.72    0.2025
+
+                                         The SAS System            17:42 Monday, May 11, 2009 356
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      2.46760000      1.23380000       5.87    0.0090
+
+       Error                       22      4.62200000      0.21009091
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.348059      65.10749      0.458357      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2      2.46760000      1.23380000       5.87    0.0090
+
+                                         The SAS System            17:42 Monday, May 11, 2009 357
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      912.150095      456.075048      16.87    <.0001
+
+       Error                       22      594.869905       27.039541
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.605267      30.95212      5.199956         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2     912.1500952     456.0750476      16.87    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 358
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      870.825695      435.412848      11.79    0.0003
+
+       Error                       22      812.539905       36.933632
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.517312      46.12405      6.077305      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2     870.8256952     435.4128476      11.79    0.0003
+
+                                         The SAS System            17:42 Monday, May 11, 2009 359
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      76.4646952      38.2323476      18.85    <.0001
+
+       Error                       22      44.6249048       2.0284048
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.631472      33.09063      1.424221      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2     76.46469524     38.23234762      18.85    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 360
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2     491.6695238     245.8347619      66.21    <.0001
+
+       Error                       22      81.6904762       3.7132035
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.857523      18.96621      1.926967      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2     491.6695238     245.8347619      66.21    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 361
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      0.09102484      0.04551242       3.56    0.0456
+
+       Error                       22      0.28094585      0.01277027
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.244710      27.72105      0.113006         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       type effect                  2      0.09102484      0.04551242       3.56    0.0456
+
+                                         The SAS System            17:42 Monday, May 11, 2009 362
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                             H = Contrast SSCP Matrix for type effect
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      10.5541245    68.44   -0.06559800   -0.30891562    0.00291862    0.01358108    0.11126568
+                             0.10394342   -0.04235492
+       4.8667685    31.56    0.09147054    0.15344673   -0.00316038    0.01429207   -0.18356350
+                             0.04277873   -1.40105216
+       0.0000000     0.00   -0.03565574    0.03433267   -0.00551504    0.01340682    0.01553996
+                             0.01064806    2.05757609
+       0.0000000     0.00   -0.03371962   -0.36348841   -0.01264719    0.03928621    0.00208877
+                            -0.01261748    0.00000000
+       0.0000000     0.00    0.07168245   -0.03291521    0.00165595   -0.00321571    0.03054556
+                             0.00473566    0.00000000
+       0.0000000     0.00    0.00895814    0.12415535   -0.04657395   -0.00948493   -0.00958090
+                             0.07028388    0.00000000
+       0.0000000     0.00    0.01624756    0.56033718   -0.02692968   -0.00506398    0.06130153
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and F Approximations for the Hypothesis of No Overall type effect Effect
+                            H = Contrast SSCP Matrix for type effect
+                                      E = Error SSCP Matrix
+
+                                        S=2    M=2    N=7
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.01475244      16.53        14        32    <.0001
+         Pillai's Trace              1.74299923      16.47        14        34    <.0001
+         Hotelling-Lawley Trace     15.42089304      16.93        14    22.462    <.0001
+         Roy's Greatest Root        10.55412451      25.63         7        17    <.0001
+
+                  NOTE: F Statistic for Roy's Greatest Root is an upper bound.
+                          NOTE: F Statistic for Wilks' Lambda is exact.
+
+                                         The SAS System            17:42 Monday, May 11, 2009 363
+
+                                        The GLM Procedure
+
+Level of      -----------ROR5-----------  ------------DE------------  ---------SALESGR5---------
+Type       N          Mean       Std Dev          Mean       Std Dev          Mean       Std Dev
+
+Chem      14    10.0071429    2.16669343    0.45000000    0.14005493    13.8285714     3.0615302
+Groc       6    12.1333333    3.76811182    0.85000000    0.49295030    13.6666667     2.9770231
+Heal       5     9.6800000    1.82400658    1.24000000    0.88769364    28.8800000    10.3526325
+
+Level of      -----------EPS5-----------  -----------NPM1-----------  ------------PE------------
+Type       N          Mean       Std Dev          Mean       Std Dev          Mean       Std Dev
+
+Chem      14     8.8214286    5.63862757    5.07857143    1.80306516     8.2142857    1.67233468
+Groc       6    14.2166667    6.71220282    1.23333333    0.37237973     7.3333333    1.21106014
+Heal       5    24.1200000    6.59446738    5.82000000    0.64575537    19.0000000    3.08220700
+
+                           Level of      -----------PAYOUTR1----------
+                           Type       N          Mean          Std Dev
+
+                           Chem      14    0.42881038       0.09314887
+                           Groc       6    0.45699267       0.16796162
+                           Heal       5    0.28920340       0.08229985
+
+                                         The SAS System            17:42 Monday, May 11, 2009 364
+
+                                        The GLM Procedure
+
+                                     Class Level Information
+
+                             Class         Levels    Values
+
+                             Type               3    Chem Groc Heal
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 365
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      22.7117810      11.3558905       1.72    0.2025
+
+       Error                       22     145.3306190       6.6059372
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.135155      24.59053      2.570202      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1     18.98688095     18.98688095       2.87    0.1041
+
+                                         The SAS System            17:42 Monday, May 11, 2009 366
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      2.46760000      1.23380000       5.87    0.0090
+
+       Error                       22      4.62200000      0.21009091
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.348059      65.10749      0.458357      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1      0.67200000      0.67200000       3.20    0.0875
+
+                                         The SAS System            17:42 Monday, May 11, 2009 367
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      912.150095      456.075048      16.87    <.0001
+
+       Error                       22      594.869905       27.039541
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.605267      30.95212      5.199956         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1      0.11009524      0.11009524       0.00    0.9497
+
+                                         The SAS System            17:42 Monday, May 11, 2009 368
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      870.825695      435.412848      11.79    0.0003
+
+       Error                       22      812.539905       36.933632
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.517312      46.12405      6.077305      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1     122.2560952     122.2560952       3.31    0.0825
+
+                                         The SAS System            17:42 Monday, May 11, 2009 369
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      76.4646952      38.2323476      18.85    <.0001
+
+       Error                       22      44.6249048       2.0284048
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.631472      33.09063      1.424221      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1     62.10059524     62.10059524      30.62    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 370
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2     491.6695238     245.8347619      66.21    <.0001
+
+       Error                       22      81.6904762       3.7132035
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.857523      18.96621      1.926967      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1      3.25952381      3.25952381       0.88    0.3590
+
+                                         The SAS System            17:42 Monday, May 11, 2009 371
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      0.09102484      0.04551242       3.56    0.0456
+
+       Error                       22      0.28094585      0.01277027
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.244710      27.72105      0.113006         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Groc                  1      0.00333581      0.00333581       0.26    0.6144
+
+                                         The SAS System            17:42 Monday, May 11, 2009 372
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                             H = Contrast SSCP Matrix for Chem v Groc
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      6.01040436   100.00   -0.11254963   -0.30698161    0.00427620   -0.00342498    0.21375686
+                             0.02735834    1.10170070
+      0.00000000     0.00   -0.03987750   -0.42186961    0.00446246    0.04566636   -0.00206587
+                            -0.00026441   -0.01064748
+      0.00000000     0.00    0.00144376   -0.00833510   -0.02577181    0.00980367   -0.01481228
+                             0.12746655   -0.05202334
+      0.00000000     0.00   -0.03364457    0.09050907   -0.00584576    0.00526701    0.02157505
+                            -0.02954346    2.23199378
+      0.00000000     0.00    0.00490891   -0.24195231    0.04821861    0.00134779   -0.02259387
+                             0.00000000    0.00000000
+      0.00000000     0.00    0.07014133   -0.01917066   -0.00349779   -0.00203323    0.03408426
+                             0.00000000    0.00000000
+      0.00000000     0.00    0.01501090    0.49332703   -0.00566821   -0.00329488    0.05523401
+                             0.00000000    0.00000000
+
+
+ MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall Chem v Groc Effect
+                            H = Contrast SSCP Matrix for Chem v Groc
+                                      E = Error SSCP Matrix
+
+                                       S=1    M=2.5    N=7
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.14264512      13.74         7        16    <.0001
+         Pillai's Trace              0.85735488      13.74         7        16    <.0001
+         Hotelling-Lawley Trace      6.01040436      13.74         7        16    <.0001
+         Roy's Greatest Root         6.01040436      13.74         7        16    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 373
+
+                                        The GLM Procedure
+
+                                     Class Level Information
+
+                             Class         Levels    Values
+
+                             Type               3    Chem Groc Heal
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 374
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      22.7117810      11.3558905       1.72    0.2025
+
+       Error                       22     145.3306190       6.6059372
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.135155      24.59053      2.570202      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1      0.39429323      0.39429323       0.06    0.8093
+
+                                         The SAS System            17:42 Monday, May 11, 2009 375
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      2.46760000      1.23380000       5.87    0.0090
+
+       Error                       22      4.62200000      0.21009091
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.348059      65.10749      0.458357      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1      2.29931579      2.29931579      10.94    0.0032
+
+                                         The SAS System            17:42 Monday, May 11, 2009 376
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      912.150095      456.075048      16.87    <.0001
+
+       Error                       22      594.869905       27.039541
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.605267      30.95212      5.199956         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1     834.6413233     834.6413233      30.87    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 377
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      870.825695      435.412848      11.79    0.0003
+
+       Error                       22      812.539905       36.933632
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.517312      46.12405      6.077305      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1     862.2757970     862.2757970      23.35    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 378
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      76.4646952      38.2323476      18.85    <.0001
+
+       Error                       22      44.6249048       2.0284048
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.631472      33.09063      1.424221      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1      2.02527068      2.02527068       1.00    0.3285
+
+                                         The SAS System            17:42 Monday, May 11, 2009 379
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2     491.6695238     245.8347619      66.21    <.0001
+
+       Error                       22      81.6904762       3.7132035
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.857523      18.96621      1.926967      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1     428.5902256     428.5902256     115.42    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 380
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      0.09102484      0.04551242       3.56    0.0456
+
+       Error                       22      0.28094585      0.01277027
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.244710      27.72105      0.113006         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem v Heal                  1      0.07180566      0.07180566       5.62    0.0269
+
+                                         The SAS System            17:42 Monday, May 11, 2009 381
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                             H = Contrast SSCP Matrix for Chem v Heal
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      7.91266803   100.00   -0.00655401   -0.17907805    0.00077764    0.01911725   -0.00406948
+                             0.11071556   -0.78462168
+      0.00000000     0.00   -0.06025789   -0.10779748    0.00449519   -0.00934955    0.19097557
+                            -0.00006556    0.00046465
+      0.00000000     0.00    0.08284970   -0.00330601    0.00001396    0.00035497   -0.00009403
+                             0.00205047   -0.01453134
+      0.00000000     0.00   -0.08576987   -0.11502227   -0.00272359    0.00930942    0.11899807
+                             0.01882188    2.36273526
+      0.00000000     0.00   -0.03740064   -0.39073093   -0.01074057    0.03980324   -0.00403585
+                            -0.01370677    0.00000000
+      0.00000000     0.00   -0.00333174    0.06480991   -0.04465971   -0.01066932    0.02095467
+                             0.07116743    0.00000000
+      0.00000000     0.00   -0.03544696   -0.60741399    0.03111072    0.00000000    0.00000000
+                             0.00000000    0.00000000
+
+
+ MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall Chem v Heal Effect
+                            H = Contrast SSCP Matrix for Chem v Heal
+                                      E = Error SSCP Matrix
+
+                                       S=1    M=2.5    N=7
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.11219985      18.09         7        16    <.0001
+         Pillai's Trace              0.88780015      18.09         7        16    <.0001
+         Hotelling-Lawley Trace      7.91266803      18.09         7        16    <.0001
+         Roy's Greatest Root         7.91266803      18.09         7        16    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 382
+
+                                        The GLM Procedure
+
+                                     Class Level Information
+
+                             Class         Levels    Values
+
+                             Type               3    Chem Groc Heal
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 383
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      22.7117810      11.3558905       1.72    0.2025
+
+       Error                       22     145.3306190       6.6059372
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.135155      24.59053      2.570202      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1     16.41503030     16.41503030       2.48    0.1292
+
+                                         The SAS System            17:42 Monday, May 11, 2009 384
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      2.46760000      1.23380000       5.87    0.0090
+
+       Error                       22      4.62200000      0.21009091
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.348059      65.10749      0.458357      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1      0.41481818      0.41481818       1.97    0.1739
+
+                                         The SAS System            17:42 Monday, May 11, 2009 385
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      912.150095      456.075048      16.87    <.0001
+
+       Error                       22      594.869905       27.039541
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.605267      30.95212      5.199956         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1     631.2150303     631.2150303      23.34    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 386
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      870.825695      435.412848      11.79    0.0003
+
+       Error                       22      812.539905       36.933632
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.517312      46.12405      6.077305      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1     267.4800303     267.4800303       7.24    0.0133
+
+                                         The SAS System            17:42 Monday, May 11, 2009 387
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      76.4646952      38.2323476      18.85    <.0001
+
+       Error                       22      44.6249048       2.0284048
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.631472      33.09063      1.424221      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1     57.37503030     57.37503030      28.29    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 388
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2     491.6695238     245.8347619      66.21    <.0001
+
+       Error                       22      81.6904762       3.7132035
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.857523      18.96621      1.926967      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1     371.2121212     371.2121212      99.97    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 389
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      0.09102484      0.04551242       3.56    0.0456
+
+       Error                       22      0.28094585      0.01277027
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.244710      27.72105      0.113006         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Groc v Heal                  1      0.07678156      0.07678156       6.01    0.0226
+
+                                         The SAS System            17:42 Monday, May 11, 2009 390
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                             H = Contrast SSCP Matrix for Groc v Heal
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      10.4521406   100.00   -0.07368171   -0.32164451    0.00319519    0.01221832    0.12757335
+                             0.09959966    0.08584372
+       0.0000000     0.00   -0.07733228   -0.04165693   -0.00294099    0.00238630    0.10991718
+                            -0.02048837    2.48817027
+       0.0000000     0.00    0.03974952    0.51383290   -0.00017772   -0.00065424   -0.00667292
+                            -0.00540743    0.00000000
+       0.0000000     0.00   -0.01829987   -0.26125178   -0.01245152    0.04180080   -0.01193277
+                            -0.00966977    0.00000000
+       0.0000000     0.00    0.04533570    0.22555092   -0.04062694    0.00256649   -0.08462151
+                             0.08606089    0.00000000
+       0.0000000     0.00    0.07054176   -0.06907679    0.00757430   -0.00394278    0.02699537
+                             0.00000000    0.00000000
+       0.0000000     0.00   -0.01432671    0.29940103   -0.03498725   -0.01769060    0.12112369
+                             0.00000000    0.00000000
+
+
+ MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall Groc v Heal Effect
+                            H = Contrast SSCP Matrix for Groc v Heal
+                                      E = Error SSCP Matrix
+
+                                       S=1    M=2.5    N=7
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.08731992      23.89         7        16    <.0001
+         Pillai's Trace              0.91268008      23.89         7        16    <.0001
+         Hotelling-Lawley Trace     10.45214056      23.89         7        16    <.0001
+         Roy's Greatest Root        10.45214056      23.89         7        16    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 391
+
+                                        The GLM Procedure
+
+                                     Class Level Information
+
+                             Class         Levels    Values
+
+                             Type               3    Chem Groc Heal
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 392
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      22.7117810      11.3558905       1.72    0.2025
+
+       Error                       22     145.3306190       6.6059372
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.135155      24.59053      2.570202      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     22.71178095     11.35589048       1.72    0.2025
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1      7.44733967      7.44733967       1.13    0.2999
+
+                                         The SAS System            17:42 Monday, May 11, 2009 393
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      2.46760000      1.23380000       5.87    0.0090
+
+       Error                       22      4.62200000      0.21009091
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.348059      65.10749      0.458357      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      2.46760000      1.23380000       5.87    0.0090
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1      1.34130275      1.34130275       6.38    0.0192
+
+                                         The SAS System            17:42 Monday, May 11, 2009 394
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      912.150095      456.075048      16.87    <.0001
+
+       Error                       22      594.869905       27.039541
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.605267      30.95212      5.199956         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     912.1500952     456.0750476      16.87    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1     882.3427558     882.3427558      32.63    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 395
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      870.825695      435.412848      11.79    0.0003
+
+       Error                       22      812.539905       36.933632
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.517312      46.12405      6.077305      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     870.8256952     435.4128476      11.79    0.0003
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1     611.8282604     611.8282604      16.57    0.0005
+
+                                         The SAS System            17:42 Monday, May 11, 2009 396
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      76.4646952      38.2323476      18.85    <.0001
+
+       Error                       22      44.6249048       2.0284048
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.631472      33.09063      1.424221      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     76.46469524     38.23234762      18.85    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1     27.34681542     27.34681542      13.48    0.0013
+
+                                         The SAS System            17:42 Monday, May 11, 2009 397
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2     491.6695238     245.8347619      66.21    <.0001
+
+       Error                       22      81.6904762       3.7132035
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.857523      18.96621      1.926967      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2     491.6695238     245.8347619      66.21    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1     485.6099825     485.6099825     130.78    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 398
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        2      0.09102484      0.04551242       3.56    0.0456
+
+       Error                       22      0.28094585      0.01277027
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.244710      27.72105      0.113006         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       Type                         2      0.09102484      0.04551242       3.56    0.0456
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       Chem Groc v Heal             1      0.09102484      0.09102484       7.13    0.0140
+
+                                         The SAS System            17:42 Monday, May 11, 2009 399
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                          H = Contrast SSCP Matrix for Chem Groc v Heal
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      10.1429063   100.00   -0.04741274   -0.27492872    0.00227889    0.01600546    0.07512800
+                             0.11009243   -0.30257399
+       0.0000000     0.00   -0.08622823   -0.08677862   -0.00257117    0.00478684    0.12430249
+                            -0.00368949    2.47119595
+       0.0000000     0.00    0.07903338   -0.02034911    0.00013996    0.00118235    0.00643834
+                             0.00781320    0.00000000
+       0.0000000     0.00   -0.04021220    0.06433224   -0.01183737   -0.02047816    0.16854177
+                            -0.00941476    0.00000000
+       0.0000000     0.00   -0.03601326   -0.31777563   -0.01499185    0.03868876    0.00663575
+                            -0.01255191    0.00000000
+       0.0000000     0.00    0.02121367    0.19952718   -0.04828852   -0.00641443   -0.03894898
+                             0.07367426    0.00000000
+       0.0000000     0.00    0.03560001    0.59522394   -0.01993669    0.00000000    0.00000000
+                             0.00000000    0.00000000
+
+
+                       MANOVA Test Criteria and Exact F Statistics for the
+                        Hypothesis of No Overall Chem Groc v Heal Effect
+                          H = Contrast SSCP Matrix for Chem Groc v Heal
+                                      E = Error SSCP Matrix
+
+                                       S=1    M=2.5    N=7
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.08974319      23.18         7        16    <.0001
+         Pillai's Trace              0.91025681      23.18         7        16    <.0001
+         Hotelling-Lawley Trace     10.14290635      23.18         7        16    <.0001
+         Roy's Greatest Root        10.14290635      23.18         7        16    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 400
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 401
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3     120.8657571      40.2885857      17.93    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 402
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3      3.28806825      1.09602275       6.05    0.0039
+
+                                         The SAS System            17:42 Monday, May 11, 2009 403
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3     1156.783492      385.594497      23.12    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 404
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3     1400.308711      466.769570      34.63    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 405
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3     39.33331429     13.11110476       3.37    0.0378
+
+                                         The SAS System            17:42 Monday, May 11, 2009 406
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3     505.9814286     168.6604762      52.57    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 407
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL effect                    3      0.08116396      0.02705465       1.95    0.1519
+
+                                         The SAS System            17:42 Monday, May 11, 2009 408
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL effect
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      12.4730932    54.82   -0.00891662   -0.15317326    0.02475530    0.03907115    0.00143725
+                             0.07860383    0.09047331
+       7.2507202    31.87    0.15950508    0.44849592    0.00849588   -0.08315504    0.13494418
+                             0.06430501    0.12221073
+       3.0305359    13.32    0.09822025   -0.34665138    0.01197903    0.04036234   -0.00757341
+                            -0.04886448   -0.14823354
+       0.0000000     0.00   -0.04385728    0.00785098   -0.00489579    0.01244488    0.03423826
+                             0.00376237    2.13553100
+       0.0000000     0.00   -0.01972748    0.18611644   -0.01729484    0.00749505    0.09140872
+                            -0.01468573    0.00000000
+       0.0000000     0.00    0.01410019    0.11320944   -0.05050615    0.00239697   -0.00970727
+                             0.06855546    0.00000000
+       0.0000000     0.00   -0.04117094   -0.61040850    0.01122952    0.01809709    0.00000000
+                             0.00000000    0.00000000
+
+
+   MANOVA Test Criteria and F Approximations for the Hypothesis of No Overall CL effect Effect
+                             H = Contrast SSCP Matrix for CL effect
+                                      E = Error SSCP Matrix
+
+                                      S=3    M=1.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.00223192      15.33        21    43.622    <.0001
+         Pillai's Trace              2.55647049      14.00        21        51    <.0001
+         Hotelling-Lawley Trace     22.75434931      15.29        21    25.337    <.0001
+         Roy's Greatest Root        12.47309323      30.29         7        17    <.0001
+
+                  NOTE: F Statistic for Roy's Greatest Root is an upper bound.
+
+                                         The SAS System            17:42 Monday, May 11, 2009 409
+
+                                        The GLM Procedure
+
+ Level of     -----------ROR5-----------  ------------DE------------  ---------SALESGR5---------
+ CL        N          Mean       Std Dev          Mean       Std Dev          Mean       Std Dev
+
+ 1         7    13.9571429    2.16937560    0.45714286    0.23704530    15.8714286    2.32071418
+ 2         5     9.5400000    0.92897793    0.82000000    0.51672043    12.6000000    3.18512166
+ 3         9     8.9333333    1.37568165    0.48888889    0.20883273    13.0555556    2.64580381
+ 4         4     8.8750000    0.34034296    1.47500000    0.82613558    32.1000000    8.58952851
+
+ Level of     -----------EPS5-----------  -----------NPM1-----------  ------------PE------------
+ CL        N          Mean       Std Dev          Mean       Std Dev          Mean       Std Dev
+
+ 1         7    13.4000000    2.13697606    5.22857143    2.66565457     9.2857143    2.13808994
+ 2         5    17.6200000    3.95310005    2.14000000    1.36674797     6.6000000    0.89442719
+ 3         9     4.7888889    3.49300889    4.10000000    1.93649167     8.3333333    1.93649167
+ 4         4    26.1000000    5.64328510    5.85000000    0.74161985    20.2500000    1.50000000
+
+                           Level of     -----------PAYOUTR1----------
+                           CL        N          Mean          Std Dev
+
+                           1         7    0.46382800       0.11895909
+                           2         5    0.39393706       0.13341940
+                           3         9    0.42403556       0.11597777
+                           4         4    0.28962925       0.09502532
+
+                                         The SAS System            17:42 Monday, May 11, 2009 410
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 411
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1     56.90752381     56.90752381      25.33    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 412
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1      0.38402381      0.38402381       2.12    0.1600
+
+                                         The SAS System            17:42 Monday, May 11, 2009 413
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1     31.21488095     31.21488095       1.87    0.1858
+
+                                         The SAS System            17:42 Monday, May 11, 2009 414
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1     51.94116667     51.94116667       3.85    0.0630
+
+                                         The SAS System            17:42 Monday, May 11, 2009 415
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1     27.82288095     27.82288095       7.15    0.0142
+
+                                         The SAS System            17:42 Monday, May 11, 2009 416
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1     21.03809524     21.03809524       6.56    0.0182
+
+                                         The SAS System            17:42 Monday, May 11, 2009 417
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL2                    1      0.01424717      0.01424717       1.03    0.3220
+
+                                         The SAS System            17:42 Monday, May 11, 2009 418
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL1 v CL2
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      6.99771669   100.00    0.17219815    0.36547910    0.01283106   -0.07076845    0.13115168
+                             0.06255418    0.10360044
+      0.00000000     0.00   -0.05009020    0.03323465   -0.00479675    0.00993556    0.03604926
+                             0.01108795    2.14356098
+      0.00000000     0.00    0.03114359    0.52795054    0.00077552   -0.00422992    0.00768284
+                             0.00368193    0.00000000
+      0.00000000     0.00   -0.03846765    0.11688902   -0.01778248    0.00158676   -0.01158853
+                             0.11654006    0.00000000
+      0.00000000     0.00    0.01205064   -0.44875878    0.01633308    0.07079903    0.00947839
+                             0.00000000    0.00000000
+      0.00000000     0.00   -0.04294021   -0.21928883    0.05389124    0.00373047   -0.01633643
+                             0.00000000    0.00000000
+      0.00000000     0.00   -0.05267919    0.29723280   -0.01237164   -0.02147130    0.09402684
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall CL1 v CL2 Effect
+                             H = Contrast SSCP Matrix for CL1 v CL2
+                                      E = Error SSCP Matrix
+
+                                      S=1    M=2.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.12503569      15.00         7        15    <.0001
+         Pillai's Trace              0.87496431      15.00         7        15    <.0001
+         Hotelling-Lawley Trace      6.99771669      15.00         7        15    <.0001
+         Roy's Greatest Root         6.99771669      15.00         7        15    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 419
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 420
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1     99.37723214     99.37723214      44.24    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 421
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1      0.00396825      0.00396825       0.02    0.8837
+
+                                         The SAS System            17:42 Monday, May 11, 2009 422
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1     31.22099206     31.22099206       1.87    0.1857
+
+                                         The SAS System            17:42 Monday, May 11, 2009 423
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1     291.9704861     291.9704861      21.66    0.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 424
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1      5.01508929      5.01508929       1.29    0.2692
+
+                                         The SAS System            17:42 Monday, May 11, 2009 425
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1      3.57142857      3.57142857       1.11    0.3034
+
+                                         The SAS System            17:42 Monday, May 11, 2009 426
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL3                    1      0.00623479      0.00623479       0.45    0.5095
+
+                                         The SAS System            17:42 Monday, May 11, 2009 427
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL1 v CL3
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      3.84930420   100.00    0.12845627   -0.21616297    0.02385911    0.02495103    0.03709799
+                             0.01509998   -0.04407969
+      0.00000000     0.00   -0.03908878    0.04640913   -0.00368245    0.00702162    0.04310961
+                             0.01440799    2.14561034
+      0.00000000     0.00    0.00237736    0.51014857    0.00029689    0.00031327    0.00047416
+                             0.00019219    0.00000000
+      0.00000000     0.00    0.03409561    0.31490698   -0.01240997   -0.03527252    0.04651945
+                             0.13113152    0.00000000
+      0.00000000     0.00    0.08440267    0.46832533   -0.00210789   -0.06648121    0.14997472
+                             0.00000000    0.00000000
+      0.00000000     0.00   -0.02449458   -0.20070859    0.05542157   -0.00457266    0.00000000
+                             0.00000000    0.00000000
+      0.00000000     0.00   -0.11159833   -0.31142085   -0.00395591    0.06525311    0.00000000
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall CL1 v CL3 Effect
+                             H = Contrast SSCP Matrix for CL1 v CL3
+                                      E = Error SSCP Matrix
+
+                                      S=1    M=2.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.20621515       8.25         7        15    0.0003
+         Pillai's Trace              0.79378485       8.25         7        15    0.0003
+         Hotelling-Lawley Trace      3.84930420       8.25         7        15    0.0003
+         Roy's Greatest Root         3.84930420       8.25         7        15    0.0003
+
+                                         The SAS System            17:42 Monday, May 11, 2009 428
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 429
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1     65.74444805     65.74444805      29.27    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 430
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1      2.63717532      2.63717532      14.57    0.0010
+
+                                         The SAS System            17:42 Monday, May 11, 2009 431
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1     670.3875325     670.3875325      40.20    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 432
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1     410.5563636     410.5563636      30.46    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 433
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1      0.98298701      0.98298701       0.25    0.6206
+
+                                         The SAS System            17:42 Monday, May 11, 2009 434
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1     306.0032468     306.0032468      95.37    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 435
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL1 v CL4                    1      0.07724234      0.07724234       5.58    0.0279
+
+                                         The SAS System            17:42 Monday, May 11, 2009 436
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL1 v CL4
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      8.55492027   100.00   -0.08720202   -0.13528572    0.01541966    0.04319995   -0.03314303
+                             0.06995368    0.10034945
+      0.00000000     0.00   -0.03768267    0.05722781   -0.00489812    0.00449254    0.04393635
+                             0.01083563    2.14371563
+      0.00000000     0.00    0.05724220    0.29515446    0.01585318   -0.03157996    0.13823803
+                             0.00441195    0.00000000
+      0.00000000     0.00    0.10782643    0.41280270   -0.02151923   -0.06306025    0.07584709
+                             0.11225292    0.00000000
+      0.00000000     0.00    0.08673581   -0.33284475    0.05262320   -0.00585884    0.00000000
+                             0.00000000    0.00000000
+      0.00000000     0.00    0.03277910   -0.45192423   -0.00912121    0.06099264    0.00000000
+                             0.00000000    0.00000000
+      0.00000000     0.00    0.08276557    0.41324702    0.00000000    0.00000000    0.00000000
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall CL1 v CL4 Effect
+                             H = Contrast SSCP Matrix for CL1 v CL4
+                                      E = Error SSCP Matrix
+
+                                      S=1    M=2.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.10465812      18.33         7        15    <.0001
+         Pillai's Trace              0.89534188      18.33         7        15    <.0001
+         Hotelling-Lawley Trace      8.55492027      18.33         7        15    <.0001
+         Roy's Greatest Root         8.55492027      18.33         7        15    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 437
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 438
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1      1.18300000      1.18300000       0.53    0.4761
+
+                                         The SAS System            17:42 Monday, May 11, 2009 439
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1      0.35239683      0.35239683       1.95    0.1775
+
+                                         The SAS System            17:42 Monday, May 11, 2009 440
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1      0.66706349      0.66706349       0.04    0.8434
+
+                                         The SAS System            17:42 Monday, May 11, 2009 441
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1     529.1916825     529.1916825      39.26    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 442
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1     12.34800000     12.34800000       3.17    0.0894
+
+                                         The SAS System            17:42 Monday, May 11, 2009 443
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1      9.65714286      9.65714286       3.01    0.0974
+
+                                         The SAS System            17:42 Monday, May 11, 2009 444
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL3                    1      0.00291188      0.00291188       0.21    0.6513
+
+                                         The SAS System            17:42 Monday, May 11, 2009 445
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL2 v CL3
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      5.95561973   100.00   -0.10264139   -0.57290262    0.00272982    0.09865293   -0.12229378
+                            -0.06021373   -0.14990779
+      0.00000000     0.00   -0.04900846    0.01084712   -0.00399080    0.01343161    0.03387876
+                             0.00991294    2.14082096
+      0.00000000     0.00    0.02803723   -0.26461307    0.06068720    0.00605492   -0.00729079
+                            -0.00361857    0.00000000
+      0.00000000     0.00    0.15208422    0.04450238   -0.00182998   -0.00664528    0.00800165
+                             0.00397139    0.00000000
+      0.00000000     0.00   -0.00296395    0.02596208   -0.00754853    0.01449894   -0.00404227
+                             0.11780614    0.00000000
+      0.00000000     0.00    0.00890790    0.60261114   -0.00302403   -0.01369312    0.01561993
+                             0.00000000    0.00000000
+      0.00000000     0.00    0.04933735   -0.02727431    0.00726412    0.01494605    0.10681927
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall CL2 v CL3 Effect
+                             H = Contrast SSCP Matrix for CL2 v CL3
+                                      E = Error SSCP Matrix
+
+                                      S=1    M=2.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.14376864      12.76         7        15    <.0001
+         Pillai's Trace              0.85623136      12.76         7        15    <.0001
+         Hotelling-Lawley Trace      5.95561973      12.76         7        15    <.0001
+         Roy's Greatest Root         5.95561973      12.76         7        15    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 446
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 447
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1      0.98272222      0.98272222       0.44    0.5156
+
+                                         The SAS System            17:42 Monday, May 11, 2009 448
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1      0.95338889      0.95338889       5.27    0.0321
+
+                                         The SAS System            17:42 Monday, May 11, 2009 449
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1     845.0000000     845.0000000      50.67    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 450
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1     159.8008889     159.8008889      11.86    0.0024
+
+                                         The SAS System            17:42 Monday, May 11, 2009 451
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1     30.58688889     30.58688889       7.86    0.0107
+
+                                         The SAS System            17:42 Monday, May 11, 2009 452
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1     414.0500000     414.0500000     129.05    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 453
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL2 v CL4                    1      0.02417804      0.02417804       1.75    0.2006
+
+                                         The SAS System            17:42 Monday, May 11, 2009 454
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL2 v CL4
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      9.74123441   100.00    0.05103911    0.15192802    0.02299423   -0.01452895    0.06800717
+                             0.10753068    0.16451213
+      0.00000000     0.00   -0.04576620    0.03930850   -0.00595194    0.00764390    0.03723482
+                             0.00586902    2.13974823
+      0.00000000     0.00    0.10483389    0.44614216   -0.00876424   -0.06436840    0.14785455
+                            -0.00397818    0.00000000
+      0.00000000     0.00    0.14636143   -0.00135325    0.00124786    0.00049005    0.00028289
+                             0.00503139    0.00000000
+      0.00000000     0.00   -0.04539209   -0.38056434   -0.01487598    0.07274644   -0.00043704
+                            -0.00777311    0.00000000
+      0.00000000     0.00   -0.00056989    0.27333702   -0.05082364   -0.03016022    0.00433052
+                             0.07702115    0.00000000
+      0.00000000     0.00   -0.01424700    0.56716790   -0.01953688    0.00000000    0.00000000
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall CL2 v CL4 Effect
+                             H = Contrast SSCP Matrix for CL2 v CL4
+                                      E = Error SSCP Matrix
+
+                                      S=1    M=2.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.09309917      20.87         7        15    <.0001
+         Pillai's Trace              0.90690083      20.87         7        15    <.0001
+         Hotelling-Lawley Trace      9.74123441      20.87         7        15    <.0001
+         Roy's Greatest Root         9.74123441      20.87         7        15    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 455
+
+                                        The GLM Procedure
+
+                                    Class Level Information
+
+                                Class         Levels    Values
+
+                                CL                 4    1 2 3 4
+
+
+                             Number of Observations Read          25
+                             Number of Observations Used          25
+
+                                         The SAS System            17:42 Monday, May 11, 2009 456
+
+                                        The GLM Procedure
+
+Dependent Variable: ROR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     120.8657571      40.2885857      17.93    <.0001
+
+       Error                       21      47.1766429       2.2465068
+
+       Corrected Total             24     168.0424000
+
+
+                       R-Square     Coeff Var      Root MSE     ROR5 Mean
+
+                       0.719258      14.34018      1.498835      10.45200
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     120.8657571      40.2885857      17.93    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1      0.00942308      0.00942308       0.00    0.9490
+
+                                         The SAS System            17:42 Monday, May 11, 2009 457
+
+                                        The GLM Procedure
+
+Dependent Variable: DE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      3.28806825      1.09602275       6.05    0.0039
+
+       Error                       21      3.80153175      0.18102532
+
+       Corrected Total             24      7.08960000
+
+
+                       R-Square     Coeff Var      Root MSE       DE Mean
+
+                       0.463788      60.43618      0.425471      0.704000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      3.28806825      1.09602275       6.05    0.0039
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1      2.69284188      2.69284188      14.88    0.0009
+
+                                         The SAS System            17:42 Monday, May 11, 2009 458
+
+                                        The GLM Procedure
+
+Dependent Variable: SALESGR5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1156.783492      385.594497      23.12    <.0001
+
+       Error                       21      350.236508       16.677929
+
+       Corrected Total             24     1507.020000
+
+
+                      R-Square     Coeff Var      Root MSE    SALESGR5 Mean
+
+                      0.767597      24.30870      4.083862         16.80000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1156.783492      385.594497      23.12    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1     1004.374701     1004.374701      60.22    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 459
+
+                                        The GLM Procedure
+
+Dependent Variable: EPS5
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     1400.308711      466.769570      34.63    <.0001
+
+       Error                       21      283.056889       13.478899
+
+       Corrected Total             24     1683.365600
+
+
+                       R-Square     Coeff Var      Root MSE     EPS5 Mean
+
+                       0.831851      27.86401      3.671362      13.17600
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     1400.308711      466.769570      34.63    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1     1257.683419     1257.683419      93.31    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 460
+
+                                        The GLM Procedure
+
+Dependent Variable: NPM1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      39.3333143      13.1111048       3.37    0.0378
+
+       Error                       21      81.7562857       3.8931565
+
+       Corrected Total             24     121.0896000
+
+
+                       R-Square     Coeff Var      Root MSE     NPM1 Mean
+
+                       0.324828      45.84359      1.973108      4.304000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     39.33331429     13.11110476       3.37    0.0378
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1      8.48076923      8.48076923       2.18    0.1548
+
+                                         The SAS System            17:42 Monday, May 11, 2009 461
+
+                                        The GLM Procedure
+
+Dependent Variable: PE
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3     505.9814286     168.6604762      52.57    <.0001
+
+       Error                       21      67.3785714       3.2085034
+
+       Corrected Total             24     573.3600000
+
+
+                       R-Square     Coeff Var      Root MSE       PE Mean
+
+                       0.882485      17.63021      1.791230      10.16000
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3     505.9814286     168.6604762      52.57    <.0001
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1     393.2500000     393.2500000     122.56    <.0001
+
+                                         The SAS System            17:42 Monday, May 11, 2009 462
+
+                                        The GLM Procedure
+
+Dependent Variable: PAYOUTR1
+
+                                               Sum of
+       Source                      DF         Squares     Mean Square    F Value    Pr > F
+
+       Model                        3      0.08116396      0.02705465       1.95    0.1519
+
+       Error                       21      0.29080672      0.01384794
+
+       Corrected Total             24      0.37197069
+
+
+                      R-Square     Coeff Var      Root MSE    PAYOUTR1 Mean
+
+                      0.218200      28.86704      0.117677         0.407653
+
+
+       Source                      DF       Type I SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Source                      DF     Type III SS     Mean Square    F Value    Pr > F
+
+       CL                           3      0.08116396      0.02705465       1.95    0.1519
+
+
+       Contrast                    DF     Contrast SS     Mean Square    F Value    Pr > F
+
+       CL3 v CL4                    1      0.05002631      0.05002631       3.61    0.0712
+
+                                         The SAS System            17:42 Monday, May 11, 2009 463
+
+                                        The GLM Procedure
+                                Multivariate Analysis of Variance
+
+                    Characteristic Roots and Vectors of: E Inverse * H, where
+                              H = Contrast SSCP Matrix for CL3 v CL4
+                                      E = Error SSCP Matrix
+
+  Characteristic           Characteristic Vector  V'EV=1
+            Root  Percent          ROR5            DE      SALESGR5          EPS5          NPM1
+                                     PE      PAYOUTR1
+
+      12.1648736   100.00   -0.01567569   -0.22030587    0.02474272    0.04955680   -0.01148891
+                             0.06831068    0.06697970
+       0.0000000     0.00   -0.04124984    0.05774327   -0.00494638    0.00496337    0.04271791
+                             0.01196862    2.14501759
+       0.0000000     0.00    0.14553455   -0.00090001    0.00010089    0.00020018   -0.00005196
+                             0.00027529    0.00000000
+       0.0000000     0.00    0.10044365    0.29941375    0.01368784   -0.03894643    0.14761836
+                             0.00181143    0.00000000
+       0.0000000     0.00    0.06351038    0.46470723   -0.02628466   -0.06643438    0.06436926
+                             0.11321730    0.00000000
+       0.0000000     0.00   -0.04194125   -0.28520076   -0.03789330    0.04694499    0.00000000
+                             0.00000000    0.00000000
+       0.0000000     0.00    0.01912970   -0.57103683    0.02962657    0.00000000    0.00000000
+                             0.00000000    0.00000000
+
+
+  MANOVA Test Criteria and Exact F Statistics for the Hypothesis of No Overall CL3 v CL4 Effect
+                             H = Contrast SSCP Matrix for CL3 v CL4
+                                      E = Error SSCP Matrix
+
+                                      S=1    M=2.5    N=6.5
+
+         Statistic                        Value    F Value    Num DF    Den DF    Pr > F
+
+         Wilks' Lambda               0.07595971      26.07         7        15    <.0001
+         Pillai's Trace              0.92404029      26.07         7        15    <.0001
+         Hotelling-Lawley Trace     12.16487357      26.07         7        15    <.0001
+         Roy's Greatest Root        12.16487357      26.07         7        15    <.0001

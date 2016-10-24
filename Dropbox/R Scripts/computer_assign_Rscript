@@ -1,0 +1,142 @@
+library(xtable)
+setwd("C://Users//Owner//Documents//STAT676")
+Sweave("CA1_Sweave.nw")
+options(digits=4)
+
+#####Problem 1
+
+x<-c(0:12)
+par(mfrow=c(1,2))
+
+plot(x,dbinom(x,12,0.25),type="h",lwd=2,ylab="density",main="pmf")
+plot(x,pbinom(x,12,0.25),type="l",lwd=2,ylab="cumulative density",main="cdf")
+
+rb<-rbinom(50,12,0.25)
+rbHist<-hist(rb,breaks=seq(-0.5,12.5,by=1))
+
+par(mfrow=c(1,1))
+plot(rbHist,xlab="x",main="",freq=F)
+
+empTab<-cbind(round(rbHist$density,4),round(dbinom(x,12,0.25),4))
+colnames(empTab)<-c("empirical","true")
+rownames(empTab)<-seq(0,12,by=1)
+empTab
+
+#####Problem 2
+x<-seq(0,1,by=0.001)
+
+par(mfrow=c(1,2))
+plot(x,dbeta(x,2,1),type="l",ylab="density",main="pdf")
+plot(x,pbeta(x,2,1),type="l",ylab="cumulative density",main="cdf")
+
+pcrtBeta<-cbind(round(qbeta(0.025,2,1),4),round(qbeta(0.975,2,1),4))
+colnames(pcrtBeta)<-c("2.5%","97.5%")
+rownames(pcrtBeta)<-""
+pcrtBeta
+
+rBeta<-rbeta(100,2,1)
+par(mfrow=c(1,1))
+
+plot(density(rBeta),xlim=c(0,1),ylim=c(0,2),xlab="x",main="")
+lines(x,dbeta(x,2,1),lty=2)
+legend(0,2,c("kernel density","true density"),lty=1:2)
+
+#####Problem 3a
+y<-6
+n<-8
+
+darciPost<-dbeta(x,1+y,1+n-y)
+ethanPost<-dbeta(x,4+y,4+n-y)
+frankPost<-dbeta(x,6+y,2+n-y)
+
+plot(x,darciPost,type="l",ylim=c(0,max(frankPost)),ylab="density",main="Posterior Distribution")
+lines(x,ethanPost,lty=2)
+lines(x,frankPost,lty=3)
+
+legend(0,3.5,c("Darci","Ethan","Frank"),lty=1:3)
+
+####Problem 3b
+y<-15
+n<-20
+
+darciPrior<-dbeta(x,1,1)
+ethanPrior<-dbeta(x,4,4)
+frankPrior<-dbeta(x,6,2)
+
+darciPost<-dbeta(x,1+y,1+n-y)
+ethanPost<-dbeta(x,4+y,4+n-y)
+frankPost<-dbeta(x,6+y,2+n-y)
+
+par(mfrow=c(1,3))
+plot(x,darciPost,type="l",ylab="density",main="Darci",ylim=c(0,5))
+lines(x,darciPrior,lty=2)
+
+plot(x,ethanPost,type="l",ylab="density",main="Ethan",ylim=c(0,5))
+lines(x,ethanPrior,lty=2)
+
+plot(x,frankPost,type="l",ylab="density",main="Frank",ylim=c(0,5))
+lines(x,frankPrior,lty=2)
+
+
+#####Problem 4
+
+betades<-function(shape1, shape2)
+{
+meanbeta<-shape1/(shape1+shape2)
+modebeta<-(shape1-1)/(shape1+shape2-2)
+medbeta<-qbeta(.5,shape1,shape2)
+sdbeta<-sqrt(shape1*shape2/((shape1+shape2)^2*(shape1+shape2+1)))
+des<-c(meanbeta, modebeta, medbeta, sdbeta)
+names(des)<-c("mean", "mode", "median", "standard deviation")
+return(des)
+}
+
+Darci<-betades(7,3)
+Ethan<-betades(10,6)
+Frank<-betades(12,4)
+
+xtable(cbind(Darci,Ethan,Frank),digits=3,caption="Descriptive Statistics for Posterior Distributions from Problem 3a")
+
+betades2<-function(shape1, shape2)
+{
+meanbeta<-shape1/(shape1+shape2)
+modebeta<-(shape1-1)/(shape1+shape2-2)
+medbeta<-qbeta(.5,shape1,shape2)
+sdbeta<-sqrt(shape1*shape2/((shape1+shape2)^2*(shape1+shape2+1)))
+prctile_2.5<-qbeta(0.025,shape1,shape2)
+prctile_97.5<-qbeta(0.975,shape1,shape2)
+des<-c(meanbeta, modebeta, medbeta, sdbeta, prctile_2.5, prctile_97.5)
+names(des)<-c("mean", "mode", "median", "standard deviation","2.5th percentile","97.5th percentile")
+return(des)
+}
+
+darciDes2<-betades2(7,3)
+ethanDes2<-betades2(10,6)
+frankDes2<-betades2(12,4)
+
+des2.a<-cbind(darciDes2,ethanDes2,frankDes2)
+colnames(des2.a)<-c("Darci","Ethan","Frank")
+xtable(des2.a[5:6,]) ##print only percentiles, remainder of info given above
+
+
+darciDes2.b<-betades2(16,6)
+ethanDes2.b<-betades2(19,9)
+frankDes2.b<-betades2(21,7)
+
+des2.b<-cbind(darciDes2.b,ethanDes2.b,frankDes2.b)
+colnames(des2.b)<-c("Darci","Ethan","Frank")
+
+xtable(des2.b,caption="Descriptive Statistics for Posterior Ditributions in Problem 3b")
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+data<-read.table("E:\\organs.txt",header=TRUE)
+data$Gender<-factor(data$Gender)
+data$Dose<-factor(data$Dose)
+data$TBW[data$TBW==0]<-NA
+levels(data$Dose)<-list(A=c(0),B=c(0.00625),C=c(0.0125))
+X<-as.matrix(cbind(data[,3:5]))
+boxplot(data$Brain~data$Gender*data$Dose,ylab="Brain weight in grams")
+boxplot(data$TBW~data$Gender*data$Dose,ylab="TBW in grams")
+boxplot(data$Thymus~data$Gender*data$Dose,ylab="Thymus weight in grams")
+
+var(X,na.rm=TRUE)
+cor(X,use="pairwise.complete.obs")
+cor(X,use="complete.obs")
+
+FA<-data[1:15,]
+FB<-data[16:30,]
+FC<-data[31:45,]
+MA<-data[46:60,]
+MB<-data[61:75,]
+MC<-data[76:90,]
+F<-data[1:45,]
+M<-data[46:90,]
+
+#load mvoutliers package
+
+chisq.plot(FA[,3:5])
+chisq.plot(FB[,3:5])
+chisq.plot(FC[,3:5])
+chisq.plot(MA[,3:5])
+chisq.plot(MB[,3:5])
+chisq.plot(MC[,3:5])
+
+fit<-manova(X~data$Gender*data$Dose)
+summary(fit)
+summary(fit,test="Wilks",intercept=TRUE)
+fit1<-manova(X~data$Gender+data$Dose)
+summary(fit1)
+anova(fit,fit1)
+
+interaction.plot<- 
+function (f1, f2, data, main = "Interaction Plot", 
+    xlab = deparse(substitute(f2)), 
+    ylab = paste("Mean of", deparse(substitute(data))), 
+    legend=T, leg.order = 1:n1, ...) 
+{ 
+
+
+    # f1,f2: factors. data: data vector 
+    # (extraction from matrix or data.frame not implemented) 
+     
+    cellmeans <- tapply(data, list(f1, f2), mean,na.rm=TRUE) 
+    n1 <- nlevels(f1) 
+    n2 <- nlevels(f2) 
+    xr <- c(1, n2) 
+    yr <- range(cellmeans) 
+    plot(0, 0, type = "n", xaxt = "n", xlim = xr, ylim = yr, 
+        main = main, xlab = xlab, ylab = ylab) 
+    matlines(t(cellmeans), lty = 1, col = 1:n1) 
+    axis(1, at = 1:n2, labels = as.character(levels(f2))) 
+    if(legend) 
+        legend(locator(1), legend = rownames(cellmeans)[leg.order], 
+            lty = 1, col = (1:n1)[leg.order]) 
+
+
+    # locator(1) waits for user to choose legend location 
+    # (click marks upper left corner) 
+    # legend entries get ordered according to leg.order 
+
+
+    invisible(list(cellmeans = cellmeans)) 
+    # cellmeans are returned 
+} 
+
+f1<-data$Gender
+f2<-data$Dose
+data1<-X[,1]
+data2<-X[,2]
+data3<-X[,3]
+
+interaction.plot(f1,f2,data1)
+interaction.plot(f1,f2,data2)
+interaction.plot(f1,f2,data3)
+
+
+
+

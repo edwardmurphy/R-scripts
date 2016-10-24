@@ -1,0 +1,85 @@
+# Summarize a data set and make a graph with elliptical confidence
+# region for the first two variables (columns of x)
+#
+# Copy and paste into an R command window, or:
+# source("http://www.stat.ncsu.edu/people/bloomfield/courses/st731/ellipse.r")
+
+ellipse = function(x, alpha = 0.05, nmu1 = 30, nmu2 = nmu1,
+                   intervalType = "Tsq", c = NULL, add = FALSE) {
+        n = nrow(x);
+        p = ncol(x);
+        
+        xbar = apply(x, 2, mean);
+        S    = var(x);
+        
+# critical value for Hotelling's T-squared:
+        a = (p * (n - 1) / (n - p)) * qf(1 - alpha, p, n - p);
+
+# set up grid for mu1:
+        b = sqrt(a * S[1, 1] / n);
+        mu1shadow = xbar[1] + c(-b, b);
+        mu1 = seq(from = xbar[1] - 1.2 * b, to = xbar[1] + 1.2 * b,
+                  length = nmu1);
+
+# set up grid for mu2:
+        b = sqrt(a * S[2, 2] / n);
+        mu2shadow = xbar[2] + c(-b, b);
+        mu2 = seq(from = xbar[2] - 1.2 * b, to = xbar[2] + 1.2 * b,
+                  length = nmu2);
+
+        if (!add) {
+# compute T-squared on the grid:
+                Tsq  = matrix(NA, length(mu1), length(mu2));
+                for (i in 1:length(mu1)) {
+                        for (j in 1:length(mu2)) {
+                                d = xbar[1:2] - c(mu1[i], mu2[j]);
+                                Tsq[i, j] =
+                                        sum(d * solve(S[1:2, 1:2] / n, d));
+                        }
+                }
+        
+# make contour plot:
+                contour(mu1, mu2, Tsq, levels = a,
+                        xlab = "mu1", ylab = "mu2");
+        
+# add the location of the mean:
+                points(xbar[1], xbar[2]);
+        }
+
+# ... and the T-squared-based simultaneous confidence intervals for the
+# components:
+        if (any(intervalType == "Tsq")) {
+                cat("Tsquare interval for mu1:", mu1shadow, "\n");
+                cat("Tsquare interval for mu2:", mu2shadow, "\n");
+                abline(v = mu1shadow, h = mu2shadow, lty = 3);
+        }
+        
+# ... and the Bonferroni-based simultaneous confidence intervals:
+        if (any(intervalType == "Bon")) {
+                mu1bon = xbar[1] +
+                        qt(c(alpha / 4, 1 - alpha / 4), n - 1) *
+                        sqrt(S[1, 1] / n);
+                mu2bon = xbar[2] +
+                        qt(c(alpha / 4, 1 - alpha / 4), n - 1) *
+                        sqrt(S[2, 2] / n);
+                cat("Bonferroni interval for mu1:", mu1bon, "\n");
+                cat("Bonferroni interval for mu2:", mu2bon, "\n");
+                abline(v = mu1bon, h = mu2bon, lty = 2);
+        }
+
+# ... and the T-squared-based simultaneous confidence intervals for an
+# arbitrary linear combination:
+        if (length(c) == 2 && c[2] != 0) {
+                mid = sum(c * xbar);
+                len = sqrt(sum(c * (S %*% c)) / n * a);
+                cat("Tsquare interval for c'mu:", mid + len * c(-1, 1), "\n");
+                dmu = (S %*% c) * sqrt(a / (n * sum(c * (S %*% c))));
+                muTangent = xbar + dmu;
+                abline(a = sum(c * muTangent) / c[2],
+                       b = -c[1] / c[2], lty = 1);
+                muTangent = xbar - dmu;
+                abline(a = sum(c * muTangent) / c[2],
+                       b = -c[1] / c[2], lty = 1);
+        }
+}
+

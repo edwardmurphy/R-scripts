@@ -1,0 +1,316 @@
+# Hypothesis tests and confidence intervals for multivariate normal means.
+#
+# Written by Radford Neal, October 2008.
+
+
+# HOTELLING'S T-SQUARED TEST FOR MULTIVARIATE MEAN.  Finds the p-value
+# a test of a null hypothesis that multivariate normal data has a 
+# particular mean.  More than one such hypothesis can be tested, with
+# a vector of p-values being returned.
+#
+# The first argument, X, is the multivariate data, as a matrix (rows
+# for cases, columns for variables), or a vector (interpreted as an n
+# by 1 matrix), or a data frame (which must have only numeric
+# variables, or logical variables that are converted to 0 and 1).  The
+# second argument, mu0, is the mean vector under the null hypothesis,
+# or a matrix whose columns are interpreted as mean vectors for
+# several null hypotheses.  The value returned is a vector of p-values
+# for the test of these null hypotheses.  If the optional "details"
+# argument is TRUE, various variables used in computing the p-values
+# are printed.
+
+Tsq.test <- function (X, mu0, details=FALSE)
+{
+  # Convert X and mu0 to matrices, if they're not matrices already, from 
+  # vectors or data frames. 
+
+  X <- as.matrix(X)
+  mu0 <- as.matrix(mu0)
+
+  # Set n to the number of observations, p to the number of variables.
+
+  n <- nrow(X)
+  p <- ncol(X)
+
+  # Stop if arguments are invalid.
+
+  if (!is.numeric(X))
+  { stop("Data must be numeric")
+  }
+
+  if (!is.numeric(mu0))
+  { stop("Hypothesized mean vector(s) must be numeric")
+  }
+
+  if (n<p)
+  { stop("Must have at least as many observations as variables")
+  }
+
+  if (nrow(mu0)!=p)
+  { stop("Wrong length for hypothesized mean vector(s)")
+  }
+
+  # Find sample means for all variables.
+
+  X.means <- rep(NA,p)
+  for (i in 1:p)
+  { X.means[i] <- mean(X[,i])
+  }
+
+  if (details)
+  { cat("\nMeans of variables:\n\n")
+    print(X.means)
+  }
+
+  # Find the sample covariance matrix, and its inverse.
+
+  X.cov <- cov(X)  
+
+  if (details)
+  { cat("\nCovariance matrix:\n\n")
+    print(X.cov)
+  }
+
+  X.cov.inv   <- solve(X.cov)
+
+  if (details)
+  { cat("\nInverse covariance matrix:\n\n")
+    print(X.cov.inv)
+  }
+
+  # Find p-values from T-squared values for each hypothesized mean vector.
+
+  p.values <- rep(NA,ncol(mu0))
+  Tsq <- rep(NA,ncol(mu0))
+
+  for (m in 1:ncol(mu0))
+  {
+    Tsq[m] <- n * t(X.means-mu0[,m]) %*% X.cov.inv %*% (X.means-mu0[,m])
+
+    p.values[m] <- 1 - pf (Tsq[m]*(n-p)/(n-1)/p, p, n-p)
+  }
+
+  if (details)
+  { cat("\nT-squared values:\n\n")
+    print(Tsq)
+    cat("\nP-values:\n\n")
+    print(p.values)
+    cat("\n")
+  }
+
+  # Return the vector of p-values.
+
+  p.values
+}
+
+
+# T-SQUARED SIMULTANEOUS CONFIDENCE INTERVALS.  Finds confidence intervals
+# for a set of linear combinations of multivariate normal variables that
+# contain the true values simultaneously with probability at least equal
+# to the specified level.
+#
+# The first argument, X, is the multivariate data, as a matrix (rows
+# for cases, columns for variables), or a vector (interpreted as an n
+# by 1 matrix), or a data frame (which must have only numeric
+# variables, or logical variables that are converted to 0 and 1).  The
+# second argument, A, is a vector of coefficients for a linear
+# combination of the variables for which a confidence interval is
+# desired, or a matrix whose columns contain several such coefficient
+# vectors.  The default for A is an identity matrix, giving confidence
+# intervals for each variable.  The third argument is the level for
+# the confidence interval (default 0.95).  The value returned is a
+# matrix having two rows, with each column containing the confidence
+# interval for the corresponding linear combination from A.
+
+Tsq.conf.int <- function (X, A=NULL, level=0.95)
+{ 
+  # Convert X and A to matrices, if they're not matrices already, from 
+  # vectors or data frames. 
+
+  X <- as.matrix(X)
+  if (is.null(A))
+  { A <- diag(ncol(X))
+    colnames(A) <- colnames(X)
+  }
+  else
+  { A <- as.matrix(A)
+  }
+
+  # Set n to the number of observations, p to the number of variables.
+
+  n <- nrow(X)
+  p <- ncol(X)
+
+  # Stop if arguments are invalid.
+
+  if (!is.numeric(X))
+  { stop("Data must be numeric")
+  }
+
+  if (!is.numeric(A))
+  { stop("Coefficients for linear combinations must be numeric")
+  }
+  
+  if (nrow(A)!=p)
+  { stop("Wrong length for coefficient vector(s)")
+  }
+
+  if (n<p)
+  { stop("Must have at least as many observations as variables")
+  }
+
+  if (!is.numeric(level) || length(level)!=1 || level<=0 || level>=1)
+  { stop("Confidence level must be between 0 and 1")
+  }
+
+  # Create a matrix that will hold the confidence intervals.
+
+  CI <- matrix(NA,2,ncol(A))
+  rownames(CI) <- c("lower","upper")
+  colnames(CI) <- colnames(A)
+
+  # Find F distribution quantile used to construct confidence intervals.
+
+  F <- qf(level,p,n-p)
+
+  # Compute the sample covariance matrix of the original variables.
+
+  C <- cov(X)
+
+  # Find the confidence intervals for the specified linear combinations.
+
+  for (i in 1:ncol(A))
+  { 
+    # Find the sample mean and variance of this linear combination.
+
+    m <- mean (X %*% A[,i])
+    v <- t(A[,i]) %*% C %*% A[,i]
+
+    # Find the confidence interval for this linear combination.
+
+    CI[1,i] <- m - sqrt ((p*(n-1)/n/(n-p)) * F * v)
+    CI[2,i] <- m + sqrt ((p*(n-1)/n/(n-p)) * F * v)
+  }
+
+  # Return all the confidence intervals.
+
+  CI
+}
+
+
+# DISPLAY MULTIVARIATE AND UNIVARIATE CONFIDENCE REGIONS FOR 2D DATA.
+# For one or more confidenc elevels, plots confidence ellipses from
+# the multivariate Hotelling's T-squared test, as well as T-squared
+# intervals for each variable, univariate confidenc intervals, and
+# univariate intervals with Bonferroni correction.
+#
+# The first argument is the data, X, given as a matrix with two
+# columns.  The levels are then specified as the second argument
+# (default is just 0.95).  Plots solid vertical and horizontal lines
+# for simultaneous confidence intervals from the T-squared test if the
+# "simultaneous" argument is TRUE, dotted lines for each variable from
+# univariate t tests if the "univariate" argument is TRUE, and dashed
+# lines from univariate t tests with Bonferroni correction if the
+# "bonferroni" argument is TRUE.  All these options default to true.
+#
+# This function returns nothing.
+#
+# The ellipses are plotted using the "contour" function, which isn't
+# the most efficient way.
+
+Tsq.conf.region <- function (X, levels=0.95, 
+                    simultaneous=TRUE, univariate=TRUE, bonferroni=TRUE)
+{
+  # Convert X to a matrix, if it isn't already, from a vector or data frame.
+
+  X <- as.matrix(X)
+
+  # Set n to the number of observations, p to the number of variables.
+
+  n <- nrow(X)
+  p <- ncol(X)
+
+  # Stop if arguments are invalid.
+
+  if (!is.numeric(X))
+  { stop("Data must be numeric")
+  }
+
+  if (n<p)
+  { stop("Must have at least as many observations as variables")
+  }
+
+  if (!is.numeric(levels) || any(levels<=0) || any(levels>=1))
+  { stop("Confidence levels must be between 0 and 1")
+  }
+
+  if (p!=2)
+  { stop("Only works for 2D data")
+  }
+
+  # Create grids of 100 values for each variable, spanning the sample mean 
+  # plus and minus four times its standard error.
+
+  se1 <- sd(X[,1])/sqrt(n)
+  x1 <- seq (mean(X[,1])-4*se1, mean(X[,1])+4*se1, length=100)
+  se2 <- sd(X[,2])/sqrt(n)
+  x2 <- seq (mean(X[,2])-4*se2, mean(X[,2])+4*se2, length=100)
+
+  # Create a matrix with the 10000 2D grid points as columns.
+
+  mu0 <- matrix(NA,2,length(x1)*length(x2))
+  k <- 0
+  for (j in 1:length(x2))
+  { for (i in 1:length(x1))
+    { k <- k + 1
+      mu0[1,k] <- x1[i]
+      mu0[2,k] <- x2[j]
+    }
+  }
+
+  # Compute the T-square test p-values for all 10000 grid points.
+
+  p.values <- Tsq.test (X, mu0)
+
+  # Make a contour plot of the p-values with (elliptical) countours at
+  # the specified levels.  
+  
+  contour (x1, x2, matrix(1-p.values,length(x1),length(x2)), levels=levels)
+
+  # Plot a dot at the sample mean.
+
+  points(mean(X[,1]),mean(X[,2]),pch=20)
+
+  # Plot simultaneous T-square intervals, if asked to.
+  
+  if (simultaneous)
+  { for (lev in levels)
+    { ci <- Tsq.conf.int (X, diag(2), lev)
+      abline(v=ci[,1])
+      abline(h=ci[,2])
+    }
+  }
+
+  # Plot univariate intervals, if asked to.
+
+  if (univariate)
+  { for (lev in levels)
+    { abline(v=t.test(X[,1],conf.level=lev)$conf.int,lty=3)
+      abline(h=t.test(X[,2],conf.level=lev)$conf.int,lty=3)
+    }
+  }
+
+  # Plot univariate intervals with Bonferroni correction, if asked to.
+
+  if (bonferroni)
+  { for (lev in levels)
+    { abline(v=t.test(X[,1],conf.level=1-(1-lev)/2)$conf.int,lty=2)
+      abline(h=t.test(X[,2],conf.level=1-(1-lev)/2)$conf.int,lty=2)
+    }
+  }
+
+  # Return nothing.
+
+  invisible()
+}
+

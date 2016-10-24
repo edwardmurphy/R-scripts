@@ -1,0 +1,53 @@
+PR2<-read.table("C:\\Users\\Owner\\Desktop\\Stats\\STAT700\\HW3housing.txt", header=T)
+PR2.fit<-lm(Y~AP+DI,data=PR2)
+
+Y<-as.matrix(PR2[,1])
+col.ones<-as.matrix(rep(1,6))
+predictors<-as.matrix(PR2[,2:3])
+X<-cbind(col.ones,predictors)
+colnames(X)<-c("Intercept","AP","DI")
+
+tx.x.inv<-solve(t(X) %*% X)
+beta.hat<-tx.x.inv %*% t(X) %*% Y
+
+beta.hat
+
+#sum of squares method for ANOVA
+Y.hat<-X %*% beta.hat
+Y.mean<-as.matrix(rep(mean(Y),6))
+
+SSR<-sum((Y.hat-Y.mean)^(2))
+SSE<-sum((Y-Y.hat)^(2))
+SSTO<-sum((Y-Y.mean)^(2))
+
+#matrix method for ANOVA
+n<-nrow(Y)
+p<-ncol(predictors)
+I<-diag(rep(1,n))
+one.vec<-as.vector(rep(1,n))
+J<-one.vec %*% t(one.vec)
+P<-X %*% tx.x.inv %*% t(X)
+
+SSR.m<-t(Y) %*% (P-(1/n)*J) %*% Y
+SSE.m<-t(Y) %*% (I-P) %*% Y
+SSTO.m<-t(Y) %*% (I-(1/n)*J) %*% Y
+
+SSR.df<-p
+SSE.df<-n-(p+1)
+SSTO.df<-n-1
+
+MSR<-SSR.m/SSR.df
+MSE<-SSE.m/SSE.df
+
+F<-c(MSR/MSE,NA,NA)
+p.val<-1-pf(F,SSR.df,SSE.df)
+
+SS<-c(SSR.m,SSE.m,SSTO.m)
+DF<-c(SSR.df,SSE.df,SSTO.df)
+MS<-c(MSR,MSE,NA)
+
+ANOVA.data<-cbind(SS,DF,MS,F,p.val)
+rownames(ANOVA.data)<-c("Regression","Error","Total")
+
+
+

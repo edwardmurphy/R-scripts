@@ -1,0 +1,16 @@
+hw3ds<-read.table("C:\\Users\\Owner\\Desktop\\Applied Lin datasets\\CH06PR15.txt")
+hw3ds
+colnames(hw3ds)<-c("satis","age","sev","anx")
+satis<-hw3ds$satis
+age<-hw3ds$age
+sev<-hw3ds$sev
+anx<-hw3ds$anx
+X<-model.matrix(~age+sev+anx)
+lm<-lm(satis~X)
+summary(lm)
+anova(lm)
+cor(lm)
+vcov(lm)
+
+
+qt(

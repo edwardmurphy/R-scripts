@@ -1,0 +1,142 @@
+library(nlme)
+HIV<-read.table("HIV.txt",header=T)
+HIV$patid<-as.factor(HIV$patid)
+HIV.g<-groupedData(RNA~Day+cd4|patid,data=HIV)
+HIV.g$patid<-as.factor(HIV.g$patid)
+
+HIV$out<-as.factor(rep(1,361))
+HIV.out.Day<-groupedData(RNA~Day|patid,outer=~out,data=HIV)
+plot(HIV.out.Day,outer=TRUE,key=F)
+HIV.out.CD4<-groupedData(RNA~cd4|patid,outer=~out,data=HIV)
+plot(HIV.out.CD4,outer=TRUE,key=F)
+
+attach(HIV)
+cor(RNA,cd4)
+
+pdf("Figure 1.pdf")
+plot(groupedData(RNA~Day|patid,data=HIV),
+	main="Figure 1: RNA change over time by patient")
+dev.off()
+
+RNA.mean<-as.data.frame(tapply(RNA,Day,mean))
+pdf("Figure 2.pdf")
+plot(RNA.mean,xlab="Day",ylab="Mean RNA",main="Figure 2: Mean RNA by Day")
+dev.off()
+
+pdf("Figure 3.pdf")
+plot(groupedData(RNA~cd4|patid,data=HIV),
+	main="Figure 3: RNA vs. CD4 by patient")
+dev.off()
+
+fit0<-gls(RNA~Day*cd4,data=HIV)
+summary(fit0)
+fit0<-gls(RNA~Day+cd4,data=HIV)
+fit1<-lme(RNA~Day+cd4,data=HIV,random=~1|patid)
+anova(fit0,fit1)
+fit2<-update(fit1,random=~Day+cd4|patid)
+fit2.1<-update(fit1, random=~Day|patid)
+anova(fit1,fit2.1)
+summary(fit2.1)
+
+getVarCov(fit2.1)
+(fit2.1$sigma)^2
+AIC(fit1)
+AIC(fit2.1)
+fit2.1$coefficients
+fit2.1$fitted[1:7,]
+
+interaction.plot(HIV$Day,factor(HIV$patid),HIV$RNA)
+
+#get initial estimates by using nls to fit each exponential separately
+#beta1=1 beta2=0.1 beta3=1 beta4=0.01
+
+nlfit.lh<-nls(RNA~beta1*exp(-beta2*Day),data=HIV,start=c(beta1=1,beta2=0.01))
+nlfit.rh<-nls(RNA~beta3*exp(-beta4*cd4),data=HIV,start=c(beta3=1,beta4=0.01))
+nlfit<-nls(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV,
+start=c(beta1=4.2,beta2=0.0053,beta3=5.09,beta4=0.0014))
+
+fit.sep<-nlsList(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV.g,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2,beta4=0.00066))
+
+plot(intervals(fit.sep))
+
+#several patients do not converge. remove and attempt to fit nlme model
+
+HIV.g.s<-subset(HIV.g,!(patid==250009))
+HIV.g.s<-subset(HIV.g.s,!(patid==610500)) 
+HIV.g.s<-subset(HIV.g.s,!(patid==271783))
+HIV.g.s<-subset(HIV.g.s,!(patid==250708)) 
+HIV.g.s<-subset(HIV.g.s,!(patid==250911)) 
+HIV.g.s<-subset(HIV.g.s,!(patid==610282))
+
+#patients with high variability in beta2 estimate
+HIV.g.s<-subset(HIV.g.s,!(patid==250642))
+HIV.g.s<-subset(HIV.g.s,!(patid==610336))
+HIV.g.s<-subset(HIV.g.s,!(patid==271773))
+HIV.g.s<-subset(HIV.g.s,!(patid==610330))
+
+fit.nl<-nlme(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV,
+fixed=beta1+beta2+beta3+beta4~1,random=beta1+beta2+beta3+beta4~1|patid,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2,beta4=0.00066),method="REML")
+
+#no convergence
+
+fit.nl.day<-nlme(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV.g,
+fixed=beta1+beta2+beta3+beta4~1,random=beta1+beta2~1,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2,beta4=0.00066),method="REML")
+
+#try random intercepts only
+mod4.1<-nlme(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV.g,
+fixed=beta1+beta2+beta3+beta4~1,random=beta1+beta3~1,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2,beta4=0.00066))
+
+anova(mod4.1,nlfit)
+
+
+#random slopes
+mod4.2<-nlme(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV.g,
+fixed=beta1+beta2+beta3+beta4~1,random=beta2+beta4~1,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2,beta4=0.00066))
+
+anova(mod4.2,nlfit)
+
+AIC(mod4.1)
+AIC(mod4.2)
+
+
+
+
+#random time doesn't converge
+mod4.3<-nlme(RNA~beta1*exp(-beta2*Day)+beta3*exp(-beta4*cd4),data=HIV.g,
+fixed=beta1+beta2+beta3+beta4~1,random=beta2~1,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2,beta4=0.00066))
+
+anova(mod4.3,mod4.2)
+
+mod4.4<-nlme(RNA~beta1*exp(-beta2*Day)+beta3,data=HIV.g,
+fixed=beta1+beta2+beta3~1,
+start=c(beta1=2.2,beta2=0.076,beta3=3.2))
+
+
+HIV.g$pred.nls<-2.24*exp(-0.076*HIV.g$Day)+3.22*exp(-0.00066*HIV.g$cd4))
+
+HIV.g.pred.nls<-groupedData(pred.nls~Day|patid,data=HIV.g)
+plot(HIV.g.pred.nls)
+
+HIV.g.pred.nls.cd4<-groupedData(pred.nls~cd4|patid,data=HIV.g)
+plot(HIV.g.pred.nls.cd4)
+
+
+#from Pinheiro
+
+HIV.nl<-function(t,c,b1,b2,b3,b4) b1*exp(-b2*t)+b3*exp(-b4*c)
+
+fit.nl<-nls(RNA~HIV.nl(Day,cd4,b1,b2,b3,b4),data=HIV,
+	start=c(b1=2.2,b2=0.076,b3=3.2,b4=0.00066))
+
+plot(fit.nl,patid~resid(.),abline=0)
+
+#
+
+
+

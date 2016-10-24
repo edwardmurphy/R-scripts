@@ -1,0 +1,27 @@
+Batch Record Title,Part No. Prefix,Part No.,Lot No.,Date of Fill,Acceptably Filled Vials Received by VI,Foreign Matter Defects ID'd During Sample and Bulk Inspection,Foreign Matter Only Reject Rate (%),Reported Foreign Matter Only Reject Rate,Overall Defects ID'd During Sample and Bulk Inspection,Overall Inspection Reject Rate (%),Reported Overall Inspection Reject Rate,AQL Pass or Fail
+"IGIV,100mL Vials",4-CO-,005,120001,13-Feb-12,860,17,1.98%,2%,23,2.67%,3%,Pass
+"IGIV,100mL Vials",4-CO-,005,120003,15-Feb-12,1368,15,1.10%,1%,20,1.46%,1%,Pass
+"IGIV,100mL Vials",4-CO-,005,120005,17-Feb-12,1250,12,0.96%,1%,19,1.52%,2%,Pass
+"IGIV,100mL Vials",4-CO-,005,120007,22-Feb-12,1550,11,0.71%,1%,16,1.03%,1%,Pass
+"IGIV,100mL Vials",4-CO-,005,120009,24-Feb-12,1442,20,1.39%,1%,33,2.29%,2%,Pass
+"IGIV,100mL Vials",4-CO-,005,120011,27-Feb-12,1604,20,1.25%,1%,35,2.18%,2%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120013,15-Mar-12,1416,11,0.78%,1%,18,1.27%,1%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120015,21-Mar-12,1507,18,1.19%,1%,35,2.32%,2%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120017,30-Mar-12,1677,27,1.61%,2%,34,2.03%,2%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120019,04-Apr-12,1597,14,0.88%,1%,28,1.75%,2%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120021,11-Apr-12,1705,33,1.94%,2%,64,3.75%,4%,Fail
+"IGIV, 100 mL Vials",4-CO-,005,120023,16-Apr-12,1716,19,1.11%,1%,32,1.86%,2%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120025,14-Sep-12,1713,58,3.39%,3%,105,6.13%,6%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120027,18-Sep-12,1552,29,1.87%,2%,74,4.77%,5%,Pass
+IGIV 100mL Vials,4-CO-,005,120029,16-Oct-12,1717,53,3.09%,3%,86,5.01%,5%,Pass
+IGIV 100mL Vials,4-CO-,005,120031,24-Oct-12,1715,33,1.92%,2%,71,4.14%,4%,Pass
+IGIV 100mL Vials,4-CO-,005,120033,02-Nov-12,1294,19,1.47%,1%,78,6.03%,6%,Pass
+"IGIV,100 mL Vials",4-CO-,005,120035,06-Nov-12,1726,45,2.61%,3%,126,7.30%,7%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120037,15-Nov-12,1798,35,1.95%,2%,142,7.90%,8%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120039,20-Nov-12,1792,85,4.74%,5%,172,9.60%,10%,Fail
+"IGIV, 100 mL Vials",4-CO-,005,120041,27-Nov-12,1718,44,2.56%,3%,68,3.96%,4%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,120043,05-Dec-12,1722,26,1.51%,2%,71,4.12%,4%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,130010,18-May-13,1354,21,1.55%,2%,61,4.51%,5%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,130008,20-May-13,1477,31,2.10%,2%,65,4.40%,4%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,130018,28-May-13,1624,50,3.08%,3%,83,5.11%,5%,Pass
+"IGIV, 100 mL Vials",4-CO-,005,130020,29-May-13,1633,72,4.41%,4%,123,7.53%,8%,Pass

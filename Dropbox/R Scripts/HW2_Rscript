@@ -1,0 +1,75 @@
+####Homework 2 STAT678
+
+Sweave("HW2_Sweave.nw")
+
+###Problem 2
+
+library(survival)
+BMT<-read.table("BMT.txt")
+g<-BMT[,1]
+time<-BMT[,3]
+delta<-BMT[,6]
+
+fit<-survdiff(Surv(time,delta)~g)
+Z=fit$obs-fit$exp
+sig=fit$var
+
+p=round(1-pchisq(fit$chisq,2),5)
+p
+
+fitKM=survfit(Surv(time,delta)~g)
+plot(fitKM,lty=c(1:3),xlab="Disease Free Survival Time",ylab="Survival Probability")
+legend(1500,1,c("ALL","AML Low Risk","AML High Risk"),lty=c(1:3))
+
+###Problem 3
+larynx<-read.table("larynx.txt")
+stage=larynx[,1]
+time=larynx[,2]
+delta=larynx[,5]
+fit=survdiff(Surv(time,delta)~stage)
+fit
+
+Z=fit$obs-fit$exp
+sig=fit$var
+a=t(as.vector(1:4))
+num=sum(a*Z)
+den=sqrt(sum(a%*%sig %*% t(a)))
+trend.statistic=num/den
+trend.statistic
+
+p=1-pnorm(trend.statistic)
+p
+
+###Problem 4
+kidney=read.table("kidney transplant.txt")
+colnames(kidney)=c("obs","time","delta","gender","race","age")
+
+#gender: male=1,female=2
+#race: white=1, black=2
+
+fit.all=survdiff(Surv(time,delta)~gender+race,data=kidney)
+p=round(1-pchisq(fit.all$chisq,3),4)
+p
+fitKM.all=survfit(Surv(time,delta)~gender+race)
+plot(fitKM.all,lty=c(1:4),xlab="Survival Time",ylab="Survival Probability",ylim=c(0.5,1),mark.time=FALSE)
+legend(50,0.7,c("White Males","Black Males","White Females","Black Females"),lty=c(1:4))
+
+fit.male=survdiff(Surv(time,delta)~race,data=subset(kidney,gender==1))
+fit.female=survdiff(Surv(time,delta)~race,data=subset(kidney,gender==2))
+chisq=rbind(round(fit.male$chisq,4),round(fit.female$chisq,4))
+p.male=round(1-pchisq(fit.male$chisq,1),4)
+p.female=round(1-pchisq(fit.female$chisq,1),4)
+p.both=rbind(p.male,p.female)
+racialdiff=cbind(chisq,p.both)
+rownames(racialdiff)=c("Male","Female")
+colnames(racialdiff)=c("test statistic","p-value")
+
+rm(list=ls(all=TRUE))
+kidney=read.table("kidney transplant.txt")
+colnames(kidney)=c("obs","time","delta","gender","race","age")
+fit.strata=survdiff(Surv(time,delta)~race+strata(gender))
+racialdiff.strata=cbind(round(fit.strata$chisq,4),round(1-pchisq(fit.strata$chisq,1),4))
+rownames(racialdiff.strata)="[1]"
+colnames(racialdiff.strata)=c("test statistic","p-value")
+
+

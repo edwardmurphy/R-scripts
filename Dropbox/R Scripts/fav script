@@ -1,0 +1,44 @@
+data<-read.delim("C:\\Users\\Owner\\Documents\\Favrille\\Fav.txt",header=TRUE)
+data1<-cbind(data[,1:7])
+data2<-cbind(data[,9:10])
+data3<-cbind(data[,12:15])
+data4<-cbind(data[,17:23])
+data5<-cbind(data[,27])
+data6<-cbind(data[,31:38])
+fav<-cbind(data1,data2,data3,data4,data5,data6)
+fav$IgClassHCGene<-as.factor(fav$IgClassHCGene)
+fav
+X<-as.matrix(fav[,7:29])
+
+
+
+
+
+
+data<-read.delim("C:\\Users\\Owner\\Desktop\\Fav.txt",header=TRUE)
+data$IgClassHCGene<-as.factor(data$IgClassHCGene)
+X<-data[,8:38]
+X<-as.matrix(X)
+XCOR<-cor(X,use="complete.obs")
+XCOV<-cov(X,use="complete.obs")
+PCACOR<-princomp(covmat=XCOR)
+PCACOV<-princomp(covmat=XCOV)
+
+#try prcomp
+prcomp(XCOR)
+
+do biplot
+
+#load psych package
+
+principal(XCOR,nfactors=)
+
+#get nfactors from eigen(XCOR)
+
+lda(X,data$IgClassHCFam,na.action=na.omit)
+
+HCFAM<-lda(X,data$IgClassHCFAM,na.action=na.omit)
+f<-predict(lda(X,data$IgClassHCFAM,na.action=na.omit),X)
+HCFAMClass<-cbind(data$IgClassHCFam,predict(lda(X,data$IgClassHCFAM,
+na.action=na.omit),X)$class,X)
+

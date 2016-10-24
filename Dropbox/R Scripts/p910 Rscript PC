@@ -1,0 +1,19 @@
+R<-read.table("C:\\Users\\Owner\\Desktop\\E9-14.txt")
+pcfa<-principal(R,nfactors=2,rotate="varimax")
+rfl<-pcfa$loadings
+comm<-(rfl[,1])^2+(rfl[,2])^2
+svar<-1-comm
+psi<-diag(svar)
+residual<-R-rfl%*%t(rfl)-psi
+
+#rotated PC factor loadings (varimax)#
+rfl
+
+#communality per variable#
+comm
+
+#specific variance per variable#
+svar
+
+#residual matrix#
+residual

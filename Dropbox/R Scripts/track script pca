@@ -1,0 +1,56 @@
+track<-read.table('C:\\Users\\Owner\\Desktop\\Stats\\Stat520\\mentrack.txt',header=TRUE)
+track.neg<--track[,2:9] 
+
+*make values negative so that small is better*
+
+track.new<-data.frame(cbind(track$Country,track.neg))
+track.pca<-prcomp(~X100m+X200m+X400m+X800m+X1500m+X5K+X10K+Marathon,
+data=track.new,center=TRUE,scale=TRUE,cor=TRUE)
+
+means<-t(mean(track.new[,2:9]))
+
+*transpose of the mean vector*
+
+identity<-array(1,dim=c(55,1))
+
+*create a row vector of 55 1s*
+
+means.matrix<-identity %*% means
+
+*create a matrix of means to subtract from dataset*
+
+means.corrected<-as.matrix(track.new[,2:9])-means.matrix
+means.corrected
+
+*create a matrix of centered observations*
+
+sd<-sd(track.new[,2:9])
+
+sd.inv<-1/sd
+d.inv<-diag(sd.inv)
+
+*create a diagonal matrix of sample variances to scale mean corrected data*
+
+data.std<-means.corrected %*% d.inv
+
+*standardized dataset*
+
+pc<-track.pca$rotation
+pc<-data.frame(pc)
+prin1<- data.std %*% as.vector(-pc$PC1)
+prin2<- data.std %*% as.vector(-pc$PC2)
+
+*non-scaled principal components*
+
+track.prin<-data.frame(cbind(track.new,prin1,prin2))
+
+*get pc1 for 12th observation (8 variables)
+
+pc1[1]*((track.new[12,2]-mean(track.new[,2]))/sd(track.new[,2]))+
+pc1[2]*((track.new[12,3]-mean(track.new[,3]))/sd(track.new[,3]))+
+pc1[3]*((track.new[12,4]-mean(track.new[,4]))/sd(track.new[,4]))+
+pc1[4]*((track.new[12,5]-mean(track.new[,5]))/sd(track.new[,5]))+
+pc1[5]*((track.new[12,6]-mean(track.new[,6]))/sd(track.new[,6]))+
+pc1[6]*((track.new[12,7]-mean(track.new[,7]))/sd(track.new[,7]))+
+pc1[7]*((track.new[12,8]-mean(track.new[,8]))/sd(track.new[,8]))+
+pc1[8]*((track.new[12,9]-mean(track.new[,9]))/sd(track.new[,9]))

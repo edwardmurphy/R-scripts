@@ -1,0 +1,49 @@
+proc iml;
+use w;
+read all into x; 
+n=nrow(x);
+p=ncol(x);
+
+print n p; 
+
+mu={500,50,30};
+
+xmean=x[:,]; 
+print xmean mu;
+
+one=j(n,1,1); 
+
+xone=one*xmean; 
+
+covx=(t(x-xone)*(x-xone))/(n-1);
+
+print covx;
+
+tsq=n*t(t(xmean)-mu)*inv(covx)*(t(xmean)-mu);
+
+print tsq;
+
+alpha=0.05;
+fcrit=finv(1-alpha,p,n-p);
+fconst=((n-1)*p)/(n-p);
+ftsq=fconst*fcrit;
+
+print fcrit,ftsq;
+quit;
+
+
+
+f=(nr-p)*tsq/((nr-1)*p);
+
+pvalue=1-probf(f,p,nr-p);
+print pvalue;
+
+
+
+
+
+
+
+
+
+quit;

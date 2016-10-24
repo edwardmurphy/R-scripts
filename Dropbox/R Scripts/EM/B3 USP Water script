@@ -1,0 +1,89 @@
+library(lattice)
+library(latticeExtra)
+library(psych)
+
+#read in data
+USP<-read.table("E:\\Micro Data Trending\\B3 USP Water.txt",header=T)
+USP$Date_YMD<-as.Date(USP$Date,origin="1900-01-01")
+USP$Loop_Diam<-as.factor(USP$Loop_Diam)
+USP$Room<-as.factor(USP$Room)
+
+#add year to data
+Oh8<-rep(2008,612)
+Oh9<-rep(2009,616)
+Year<-c(Oh8,Oh9)
+USP.yr<-data.frame(cbind(USP,Year))
+
+#create subsets for comparative descriptions, plotting and frequency
+Two008<-subset(USP.yr,USP.yr$Year==2008)
+Two009<-subset(USP.yr,USP.yr$Year==2009)
+#etc.
+
+#frequency table
+freq.bio<-data.frame(table(cut(USP.yr$Bioburden,seq(-1,151,1))))
+
+
+#may have to remove days with NAs. create new date frame for this
+USP.na<-na.omit(USP)
+
+#descriptions
+
+summary(USP)
+nlevels(USP$Room)
+nlevels(USP$Port)
+
+describe.by(USP.yr$Bioburden,list(USP.yr$Room,USP.yr$Year))
+describe.by(USP.yr$Bioburden,USP.yr$Year)
+describe.by(USP.yr$TOC,USP.yr$Year)
+describe.by(USP.yr$Conductivity,USP.yr$Year)
+
+write.table(summary(USP),file="E:\\B3 USP summary.xls",sep="\t",col.names=NA)
+
+#graphics
+bwplot(~Bioburden|Room+Year,data=USP.yr)
+
+histogram(USP$Bioburden)
+densityplot(~Bioburden,data=USP,groups=Room,plot.points=FALSE,auto.key=list(space="right",title="Room"))
+
+ecdfplot(~Bioburden|Room,groups=Year,data=USP.yr)
+
+xyplot(Bioburden~Date,data=USP)
+xyplot(Bioburden~Date|Port,data=USP)
+xyplot(Bioburden~Date_YMD|Port,data=USP)
+xyplot(Bioburden~Date_YMD|Room,date=USP)
+
+xyplot(Bioburden~Date_YMD|equal.count(as.numeric(Date_YMD,8,overlap=0.1)),
+data=USP.na,type="l",aspect="xy",strip=FALSE,scales=list(x=list(relation=
+"sliced",axs="i"),y=list(alternating=FALSE)))
+
+#TOC
+qqnorm(USP.yr$TOC)
+qqnorm(Two008$TOC)
+qqnorm(Two009$TOC)
+
+#all non-normal- perform box-cox transform
+library(car)
+library(MASS)
+
+boxcox(USP.yr$TOC~1,lambda=seq(-1,0,0.1))
+TOC.bc.all<-box.cox(USP.yr$TOC,-0.6)
+shapiro.test(TOC.bc.all)
+
+boxcox(Two008$TOC~1,lambda=seq(-1,0,0.1))
+TOC.bc.08<-box.cox(Two008$TOC,-0.8)
+shapiro.test(TOC.bc.08)
+
+boxcox(Two009$TOC~1,lambda=seq(-1,0,0.1))
+TOC.bc.09<-box.cox(Two009$TOC,-0.4)
+shapiro.test(TOC.bc.09)
+
+qqnorm(TOC.bc.all)
+qqnorm(TOC.bc.08)
+qqnorm(TOC.bc.09)
+
+#but, these transforms are hard to understand for a non-stats, and may be hard 
+#to transform the limits back to actual TOC units
+#try easier to interpret transformations
+
+
+

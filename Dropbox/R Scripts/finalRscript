@@ -1,0 +1,20 @@
+setwd("C://Users//Owner//Documents//STAT701")
+
+?rnbinom
+     x1 <- rnbinom(500, mu = 4, size = 1)
+     x2 <- rnbinom(500, mu = 4, size = 10)
+     x3 <- rnbinom(500, mu = 4, size = 100)
+     h1 <- hist(x1, breaks = 20, plot = FALSE)
+     h2 <- hist(x2, breaks = h1$breaks, plot = FALSE)
+     h3 <- hist(x3, breaks = h1$breaks, plot = FALSE)
+
+write.table(x2,"X2.xls")
+
+###compare AIC values
+nb<-glm.nb(x2~1)
+p<-glm(x2~1,family=poisson)
+
+###fitted, but no loglike
+nb<-fitdistr(x3,"negative binomial")
+p<-fitdistr(x3,"poisson")
+

@@ -1,0 +1,54 @@
+Problem 1 R code
+
+PR1<-read.table("MidPR1.csv",header=T)
+attach(PR1)
+fit.pr1<-lm(Proof~Age)
+summary(fit.pr1)
+
+estimators<-as.matrix(c(summary(fit.pr1)$coefficients[1,1],summary(fit.pr1)$coefficients
+	[2,1],(summary(fit.pr1)$sigma)^2))
+rownames(estimators)<-c("beta0.hat","beta1.hat","sigmasq.hat")
+estimators
+
+se.beta0.hat<-summary(fit.pr1)$coefficients[1,2]
+se.beta1.hat<-summary(fit.pr1)$coefficients[2,2]
+
+df<-length(Proof)-(1+1)
+alpha=0.05
+t.crit<-qt(1-alpha/2,df)
+chisq.crit.lower<-qchisq(alpha/2,df)
+chisq.crit.upper<-qchisq(1-alpha/2,df)
+
+
+beta0.lower<-estimators[1,1]-t.crit*se.beta0.hat
+beta0.upper<-estimators[1,1]+t.crit*se.beta0.hat
+beta0.95CI<-as.matrix(c(beta0.lower,beta0.upper))
+
+beta1.lower<-estimators[2,1]-t.crit*se.beta1.hat
+beta1.upper<-estimators[2,1]+t.crit*se.beta1.hat
+beta1.95CI<-as.matrix(c(beta1.lower,beta1.upper))
+
+sigmasq.lower<-df*estimators[3,1]/chisq.crit.upper
+sigmasq.upper<-df*estimators[3,1]/chisq.crit.lower
+sigmasq.95CI<-c(sigmasq.lower,sigmasq.upper)
+
+estimators.95CI<-as.matrix(cbind(beta0.95CI,beta1.95CI,sigmasq.95CI))
+rownames(estimators.95CI)<-c("lower","upper")
+colnames(estimators.95CI)<-c("beta0","beta1","sigmasq")
+estimators.95CI
+
+t.beta0<-(estimators[1,1]-0)/se.beta0.hat
+if(t.beta0>t.crit)"Reject" else{
+	if(t.beta<(-t.crit))"Reject" else "Do not reject"}
+
+t.beta1<-(estimators[2,1]-0)/se.beta1.hat
+if(t.beta1>t.crit)"Reject" else{
+	if(t.beta<(-t.crit))"Reject" else "Do not reject"}
+
+chisq.sigmasq<-df*estimators[3,1]/6
+if(chisq.sigmasq<chisq.crit.lower) "Reject" else{
+	if(chisq.sigmasq>chisq.crit.upper) "Reject" else "Do not reject"}
+
+anova(fit.pr1)
+f.crit<-qf(1-alpha/2,1,8)
+f.crit
